@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>定期テスト対策 フラッシュカード</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --bg2: #f5f5f3;
+      --bg3: #eeede9;
+      --text: #1a1a18;
+      --text2: #6b6b67;
+      --text3: #9b9b97;
+      --border: rgba(0,0,0,0.1);
+      --border2: rgba(0,0,0,0.18);
+      --info-bg: #e6f1fb;
+      --info-text: #185fa5;
+      --info-border: rgba(24,95,165,0.3);
+      --ok-bg: #eaf3de;
+      --ok-text: #3b6d11;
+      --ok-border: rgba(59,109,17,0.3);
+      --ng-bg: #fcebeb;
+      --ng-text: #a32d2d;
+      --ng-border: rgba(163,45,45,0.3);
+      --warn-bg: #faeeda;
+      --warn-text: #854f0b;
+      --radius: 8px;
+      --radius-lg: 12px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1e1e1c;
+        --bg2: #2a2a28;
+        --bg3: #333331;
+        --text: #f0efeb;
+        --text2: #a0a09c;
+        --text3: #6b6b67;
+        --border: rgba(255,255,255,0.1);
+        --border2: rgba(255,255,255,0.18);
+        --info-bg: #0c2d4a;
+        --info-text: #85b7eb;
+        --ok-bg: #1a2e0a;
+        --ok-text: #97c459;
+        --ng-bg: #2e0a0a;
+        --ng-text: #f09595;
+        --warn-bg: #2e1e00;
+        --warn-text: #ef9f27;
+      }
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: var(--bg3);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 1rem;
+    }
+
+    #app {
+      width: 100%;
+      max-width: 600px;
+      background: var(--bg);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      min-height: 90vh;
+    }
+
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    /* 共通 */
+    .page-title { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+    .page-sub { font-size: 13px; color: var(--text2); margin-bottom: 1.5rem; }
+    .section-label { font-size: 13px; font-weight: 500; color: var(--text2); margin-bottom: 8px; }
+    .btn {
+      font-size: 14px; padding: 9px 18px;
+      border-radius: var(--radius); border: 1px solid var(--border2);
+      background: var(--bg); color: var(--text);
+      cursor: pointer; transition: background 0.15s;
+    }
+    .btn:hover { background: var(--bg2); }
+    .btn-primary {
+      background: var(--info-bg); color: var(--info-text);
+      border-color: var(--info-border); font-weight: 500;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-full { width: 100%; font-size: 16px; padding: 13px; }
+    .btn-success {
+      background: var(--ok-bg); color: var(--ok-text);
+      border-color: var(--ok-border); font-weight: 500;
+      font-size: 16px; padding: 12px 28px;
+    }
+    .btn-ng {
+      background: var(--ng-bg); color: var(--ng-text);
+      border-color: var(--ng-border); font-weight: 500;
+      font-size: 16px; padding: 12px 28px;
+    }
+    .btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .back-link {
+      font-size: 13px; color: var(--text2); cursor: pointer;
+      margin-bottom: 1.25rem; display: inline-block;
+    }
+    .back-link:hover { color: var(--text); }
+
+    /* 統計カード */
+    .stats-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 1.5rem; }
+    .stat-card { background: var(--bg2); border-radius: var(--radius); padding: 12px; text-align: center; }
+    .stat-num { font-size: 24px; font-weight: 600; }
+    .stat-label { font-size: 12px; color: var(--text2); margin-top: 2px; }
+
+    /* 教科選択 */
+    .subject-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.5rem; }
+    .subject-card {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 14px 16px;
+      cursor: pointer; transition: border-color 0.15s;
+    }
+    .subject-card:hover { border-color: var(--border2); }
+    .subject-icon { font-size: 24px; }
+    .subject-info { flex: 1; }
+    .subject-name { font-size: 16px; font-weight: 500; }
+    .subject-meta { font-size: 12px; color: var(--text2); margin-top: 2px; }
+    .subject-arrow { font-size: 20px; color: var(--text3); }
+
+    /* 単元カード */
+    .unit-cards { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.5rem; }
+    .unit-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 12px 16px;
+      cursor: pointer; transition: border-color 0.15s;
+    }
+    .unit-card:hover { border-color: var(--border2); }
+    .uc-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .uc-name { font-size: 14px; font-weight: 500; }
+    .uc-meta { font-size: 12px; color: var(--text2); }
+    .uc-bar-bg { height: 4px; background: var(--bg3); border-radius: 2px; }
+    .uc-bar { height: 4px; border-radius: 2px; transition: width 0.4s; }
+    .weak-badge {
+      font-size: 11px; padding: 2px 7px;
+      border-radius: var(--radius);
+      background: var(--ng-bg); color: var(--ng-text);
+      margin-left: 6px;
+    }
+
+    /* クイズ画面 */
+    .quiz-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+    .unit-tag {
+      font-size: 12px; color: var(--info-text);
+      background: var(--info-bg); border-radius: var(--radius);
+      padding: 3px 10px;
+    }
+    .q-count { font-size: 13px; color: var(--text2); }
+    .progress { height: 4px; background: var(--bg3); border-radius: 2px; margin-bottom: 1.5rem; }
+    .progress-fill { height: 4px; border-radius: 2px; background: var(--info-text); transition: width 0.3s; }
+    .flashcard {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 2rem 1.5rem;
+      margin-bottom: 1.25rem; min-height: 160px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .card-label {
+      font-size: 11px; font-weight: 600; color: var(--text3);
+      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px;
+    }
+    .card-q { font-size: 18px; font-weight: 500; line-height: 1.6; }
+    .ans-area {
+      margin-top: 1.25rem; padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+    }
+    .ans-label {
+      font-size: 11px; font-weight: 600; color: var(--text3);
+      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px;
+    }
+    .ans-text { font-size: 22px; font-weight: 600; color: var(--ok-text); }
+    .judge-row { display: flex; gap: 12px; justify-content: center; }
+    .hint { font-size: 12px; color: var(--text3); text-align: center; margin-top: 10px; }
+
+    /* 結果画面 */
+    .result-center { text-align: center; padding: 1.5rem 0 1rem; }
+    .result-badge { font-size: 44px; margin-bottom: 8px; }
+    .result-title { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+    .result-msg { font-size: 14px; color: var(--text2); margin-bottom: 1.5rem; }
+    .missed-list { margin: 1rem 0 1.5rem; }
+    .missed-item { padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .missed-q { font-size: 13px; color: var(--text2); margin-bottom: 3px; }
+    .missed-a { font-size: 14px; font-weight: 500; }
+  </style>
+</head>
+<body>
+<div id="app">
+
+  <!-- 教科選択画面 -->
+  <div id="s-subjects" class="screen">
+    <div class="page-title">テスト対策</div>
+    <div class="page-sub">教科を選んでスタート</div>
+    <div class="subject-list" id="subject-list"></div>
+  </div>
+
+  <!-- ダッシュボード画面 -->
+  <div id="s-dash" class="screen">
+    <div class="back-link" onclick="goSubjects()">← 教科選択</div>
+    <div class="page-title" id="dash-subject-name"></div>
+    <div class="page-sub">単元を選んでスタート</div>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-num" id="d-total">0</div><div class="stat-label">累計枚数</div></div>
+      <div class="stat-card"><div class="stat-num" id="d-ok">0</div><div class="stat-label">わかった</div></div>
+      <div class="stat-card"><div class="stat-num" id="d-rate">-%</div><div class="stat-label">正答率</div></div>
+    </div>
+    <div class="section-label">単元を選ぶ</div>
+    <div class="unit-cards" id="unit-list"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="startAll()">全単元まとめて解く</button>
+      <button class="btn" id="weak-btn" style="display:none;background:var(--ng-bg);color:var(--ng-text);border-color:var(--ng-border)" onclick="startWeak()">苦手だけ解く</button>
+      <button class="btn" style="font-size:12px;color:var(--text2)" onclick="resetStats()">記録をリセット</button>
+    </div>
+  </div>
+
+  <!-- クイズ画面 -->
+  <div id="s-quiz" class="screen">
+    <div class="quiz-top">
+      <span class="unit-tag" id="q-unit-tag"></span>
+      <span class="q-count" id="q-cnt"></span>
+    </div>
+    <div class="progress"><div class="progress-fill" id="q-prog" style="width:0%"></div></div>
+    <div class="flashcard">
+      <div class="card-label">問題</div>
+      <div class="card-q" id="q-text"></div>
+      <div class="ans-area" id="ans-area" style="display:none">
+        <div class="ans-label">答え</div>
+        <div class="ans-text" id="ans-text"></div>
+      </div>
+    </div>
+    <div id="quiz-btns"></div>
+    <div class="hint" id="hint-text"></div>
+  </div>
+
+  <!-- 結果画面 -->
+  <div id="s-result" class="screen">
+    <div class="result-center">
+      <div class="result-badge" id="r-badge">⭐</div>
+      <div class="result-title" id="r-title"></div>
+      <div class="result-msg" id="r-msg"></div>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-num" id="r-total"></div><div class="stat-label">枚数</div></div>
+      <div class="stat-card"><div class="stat-num" id="r-ok"></div><div class="stat-label">わかった</div></div>
+      <div class="stat-card"><div class="stat-num" id="r-rate"></div><div class="stat-label">正答率</div></div>
+    </div>
+    <div class="missed-list" id="r-missed"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" id="r-retry" style="display:none" onclick="retryMissed()">わからなかった問題をもう一度</button>
+      <button class="btn" onclick="goHome()">ダッシュボードへ</button>
+      <button class="btn" onclick="goSubjects()">教科選択へ</button>
+    </div>
+  </div>
+
+</div>
+<script src="js/app.js"></script>
+</body>
+</html>
