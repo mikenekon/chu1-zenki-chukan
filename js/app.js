@@ -18,6 +18,7 @@ let sessionMissed = [];
 let sessionTotal = 0;
 let sessionOk = 0;
 let currentCard = null;
+let quizHistory = [];
 let stats = {};
 
 function loadStats() {
@@ -116,10 +117,10 @@ function renderDashboard() {
     const rate = us.total > 0 ? Math.round(us.ok / us.total * 100) : null;
     const barW = rate ?? 0;
     const barColor = rate === null
-      ? 'var(--color-border-tertiary)'
-      : rate >= 80 ? 'var(--color-text-success)'
-      : rate >= 50 ? 'var(--color-text-warning)'
-      : 'var(--color-text-danger)';
+      ? 'var(--text3)'
+      : rate >= 80 ? 'var(--ok-text)'
+      : rate >= 50 ? 'var(--warn-text)'
+      : 'var(--ng-text)';
     const wc = us.weak?.length || 0;
     return `
       <div class="unit-card" onclick="startUnit('${u.unit.replace(/'/g, "\\'")}')">
@@ -174,6 +175,7 @@ function beginQuiz() {
   sessionMissed = [];
   sessionTotal = 0;
   sessionOk = 0;
+  quizHistory = [];
   showScreen('s-quiz');
   nextCard();
 }
@@ -181,10 +183,8 @@ function beginQuiz() {
 // ===========================
 // カード画面
 // ===========================
-function nextCard() {
-  if (!queue.length) { showResult(); return; }
-  currentCard = queue.shift();
-  document.getElementById('q-unit-tag').textContent = currentCard.unit;
+function renderCurrentCard() {
+  document.getElementById('q-unit-tag').textContent = `${currentSubject.icon} ${currentSubject.name} · ${currentCard.unit}`;
   document.getElementById('q-text').textContent = currentCard.q;
   document.getElementById('ans-area').style.display = 'none';
   document.getElementById('quiz-btns').innerHTML = `
@@ -194,6 +194,13 @@ function nextCard() {
   const total = done + queue.length + 1;
   document.getElementById('q-prog').style.width = (done / total * 100) + '%';
   document.getElementById('q-cnt').textContent = `${done + 1} / ${total}枚`;
+  document.getElementById('prev-btn').style.display = quizHistory.length > 0 ? '' : 'none';
+}
+
+function nextCard() {
+  if (!queue.length) { showResult(); return; }
+  currentCard = queue.shift();
+  renderCurrentCard();
 }
 
 function revealAnswer() {
@@ -211,6 +218,8 @@ function judge(ok) {
   const sid = currentSubject.id;
   const us = getUnitStats(sid, currentCard.unit);
   const ss = getSubjectStats(sid);
+  const prevWeak = [...us.weak];
+  quizHistory.push({ card: currentCard, ok, unit: currentCard.unit, prevWeak });
   sessionTotal++; ss.total++; us.total++;
   if (ok) {
     sessionOk++; ss.ok++; us.ok++;
@@ -221,6 +230,28 @@ function judge(ok) {
   }
   saveStats();
   nextCard();
+}
+
+function prevCard() {
+  if (!quizHistory.length) return;
+  const last = quizHistory.pop();
+  const previousCard = last.card;
+  const sid = currentSubject.id;
+  const ss = getSubjectStats(sid);
+  const us = getUnitStats(sid, previousCard.unit);
+  ss.total--;
+  us.total--;
+  sessionTotal--;
+  if (last.ok) {
+    ss.ok--;
+    us.ok--;
+    sessionOk--;
+  }
+  us.weak = last.prevWeak;
+  if (currentCard) queue.unshift(currentCard);
+  currentCard = previousCard;
+  saveStats();
+  renderCurrentCard();
 }
 
 // ===========================
@@ -253,8 +284,20 @@ function showResult() {
 }
 
 function retryMissed() { queue = [...sessionMissed]; beginQuiz(); }
-function goHome() { showScreen('s-dash'); renderDashboard(); }
-function goSubjects() { showScreen('s-subjects'); renderSubjectScreen(); }
+function confirmLeaveQuiz() {
+  if (document.getElementById('s-quiz').classList.contains('active') && (currentCard || queue.length)) {
+    return confirm('クイズを中断して戻りますか？現在の進行は保持されません。');
+  }
+  return true;
+}
+function goHome() {
+  if (!confirmLeaveQuiz()) return;
+  showScreen('s-dash'); renderDashboard();
+}
+function goSubjects() {
+  if (!confirmLeaveQuiz()) return;
+  showScreen('s-subjects'); renderSubjectScreen();
+}
 function resetStats() {
   if (!confirm('この教科の記録をリセットしますか？')) return;
   if (currentSubject) delete stats[currentSubject.id];

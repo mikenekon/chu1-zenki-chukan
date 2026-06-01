@@ -158,6 +158,9 @@
       padding: 3px 10px;
     }
     .q-count { font-size: 13px; color: var(--text2); }
+    .quiz-nav { margin-bottom: 1rem; }
+    .quiz-nav .btn-row { justify-content: space-between; }
+    .quiz-nav .btn { font-size: 13px; padding: 8px 12px; }
     .progress { height: 4px; background: var(--bg3); border-radius: 2px; margin-bottom: 1.5rem; }
     .progress-fill { height: 4px; border-radius: 2px; background: var(--info-text); transition: width 0.3s; }
     .flashcard {
@@ -228,6 +231,15 @@
     <div class="quiz-top">
       <span class="unit-tag" id="q-unit-tag"></span>
       <span class="q-count" id="q-cnt"></span>
+    </div>
+    <div class="quiz-nav">
+      <div class="btn-row">
+        <button class="btn" id="prev-btn" onclick="prevCard()" style="display:none">← 前の問題へ戻る</button>
+      </div>
+      <div class="btn-row" style="justify-content:flex-end;">
+        <button class="btn" onclick="goHome()">ダッシュボードへ</button>
+        <button class="btn" onclick="goSubjects()">教科選択へ</button>
+      </div>
     </div>
     <div class="progress"><div class="progress-fill" id="q-prog" style="width:0%"></div></div>
     <div class="flashcard">
