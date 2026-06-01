@@ -11,4 +11,11 @@
     "file": "data/rika.json"
   }
 
+  ,
+  {
+    "id": "english",
+    "name": "英語",
+    "icon": "🇬🇧",
+    "file": "data/english.json"
+  }
 ]

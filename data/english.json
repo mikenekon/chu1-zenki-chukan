@@ -1,0 +1,23 @@
+{
+  "subject": "English",
+  "version": "1.0",
+  "units": [
+    {
+      "unit": "Vocabulary",
+      "questions": [
+        {
+          "id": 1,
+          "q": "Example: What is the meaning of 'apple'?",
+          "a": "A fruit that is typically red, green, or yellow.",
+          "explanation": ""
+        },
+        {
+          "id": 2,
+          "q": "Example: What is the plural of 'child'?",
+          "a": "children",
+          "explanation": ""
+        }
+      ]
+    }
+  ]
+}
