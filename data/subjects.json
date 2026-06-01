@@ -1,8 +1,14 @@
 [
+  { "id": "kanji",
+    "name": "漢字中間テスト",
+    "icon": "📝",
+    "file": "data/kanji.json"
+  },
   {
     "id": "rika",
     "name": "理科",
     "icon": "🔬",
     "file": "data/rika.json"
   }
+
 ]
