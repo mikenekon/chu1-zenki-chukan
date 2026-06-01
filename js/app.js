@@ -2,9 +2,26 @@
 // データ読み込み
 // ===========================
 async function loadJSON(path) {
-  const res = await fetch(path);
+  const res = await fetch(path, { cache: 'no-store' });
   if (!res.ok) throw new Error(`Failed to load: ${path}`);
   return res.json();
+}
+
+// 強制リロード: サーバーに直接問い合わせてからページをリロードします。
+async function forceReload() {
+  const btn = document.getElementById('force-update');
+  if (btn) { btn.disabled = true; btn.textContent = '更新中...'; }
+  try {
+    // 主要ファイルにキャッシュ無効でアクセスして最新を取得させる
+    await Promise.all([
+      fetch(window.location.href, { cache: 'no-store', credentials: 'same-origin' }),
+      fetch('index.html', { cache: 'no-store' }),
+      fetch('js/app.js', { cache: 'no-store' })
+    ]);
+  } catch (e) {
+    // ignore
+  }
+  location.reload();
 }
 
 // ===========================

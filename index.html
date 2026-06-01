@@ -103,6 +103,11 @@
       font-size: 16px; padding: 12px 28px;
     }
     .btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .force-update {
+      position: fixed; top: 14px; right: 14px; z-index: 60;
+      font-size: 13px; padding: 8px 10px; border-radius: 8px;
+      background: var(--info-bg); color: var(--info-text); border: 1px solid var(--info-border);
+    }
     .back-link {
       font-size: 13px; color: var(--text2); cursor: pointer;
       margin-bottom: 1.25rem; display: inline-block;
@@ -198,6 +203,7 @@
 </head>
 <body>
 <div id="app">
+  <button class="force-update btn" id="force-update" onclick="forceReload()">更新</button>
 
   <!-- 教科選択画面 -->
   <div id="s-subjects" class="screen">
