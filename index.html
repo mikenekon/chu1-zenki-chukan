@@ -158,9 +158,8 @@
       padding: 3px 10px;
     }
     .q-count { font-size: 13px; color: var(--text2); }
-    .quiz-nav { margin-bottom: 1rem; }
-    .quiz-nav .btn-row { justify-content: space-between; }
-    .quiz-nav .btn { font-size: 13px; padding: 8px 12px; }
+    .quiz-footer { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 1rem; }
+    .quiz-footer .btn-row { gap: 8px; }
     .progress { height: 4px; background: var(--bg3); border-radius: 2px; margin-bottom: 1.5rem; }
     .progress-fill { height: 4px; border-radius: 2px; background: var(--info-text); transition: width 0.3s; }
     .flashcard {
@@ -204,6 +203,7 @@
   <div id="s-subjects" class="screen">
     <div class="page-title">テスト対策</div>
     <div class="page-sub">教科を選んでスタート</div>
+    <div id="resume-area"></div>
     <div class="subject-list" id="subject-list"></div>
   </div>
 
@@ -216,6 +216,10 @@
       <div class="stat-card"><div class="stat-num" id="d-total">0</div><div class="stat-label">累計枚数</div></div>
       <div class="stat-card"><div class="stat-num" id="d-ok">0</div><div class="stat-label">わかった</div></div>
       <div class="stat-card"><div class="stat-num" id="d-rate">-%</div><div class="stat-label">正答率</div></div>
+    </div>
+    <div class="btn-row" id="dashboard-controls" style="margin-bottom:1rem; gap:8px;">
+      <button class="btn btn-primary" id="continue-quiz-btn" style="display:none" onclick="resumeQuiz()">途中で再開</button>
+      <button class="btn" id="last-result-btn" style="display:none" onclick="showSavedResult()">前回の結果を見る</button>
     </div>
     <div class="section-label">単元を選ぶ</div>
     <div class="unit-cards" id="unit-list"></div>
@@ -232,15 +236,6 @@
       <span class="unit-tag" id="q-unit-tag"></span>
       <span class="q-count" id="q-cnt"></span>
     </div>
-    <div class="quiz-nav">
-      <div class="btn-row">
-        <button class="btn" id="prev-btn" onclick="prevCard()" style="display:none">← 前の問題へ戻る</button>
-      </div>
-      <div class="btn-row" style="justify-content:flex-end;">
-        <button class="btn" onclick="goHome()">ダッシュボードへ</button>
-        <button class="btn" onclick="goSubjects()">教科選択へ</button>
-      </div>
-    </div>
     <div class="progress"><div class="progress-fill" id="q-prog" style="width:0%"></div></div>
     <div class="flashcard">
       <div class="card-label">問題</div>
@@ -252,6 +247,14 @@
     </div>
     <div id="quiz-btns"></div>
     <div class="hint" id="hint-text"></div>
+    <div class="quiz-footer">
+      <button class="btn" id="prev-btn" onclick="prevCard()" style="display:none">← 前の問題へ戻る</button>
+      <div class="btn-row" style="justify-content:flex-end;">
+        <button class="btn" onclick="saveAndQuit()">途中でやめる</button>
+        <button class="btn" onclick="goHome()">ダッシュボードへ</button>
+        <button class="btn" onclick="goSubjects()">教科選択へ</button>
+      </div>
+    </div>
   </div>
 
   <!-- 結果画面 -->
@@ -259,6 +262,7 @@
     <div class="result-center">
       <div class="result-badge" id="r-badge">⭐</div>
       <div class="result-title" id="r-title"></div>
+      <div class="page-sub" id="r-subject" style="margin-bottom:0.75rem;"></div>
       <div class="result-msg" id="r-msg"></div>
     </div>
     <div class="stats-grid">

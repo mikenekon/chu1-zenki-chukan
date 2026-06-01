@@ -34,6 +34,252 @@ function saveStats() {
   } catch (e) {}
 }
 
+const PROGRESS_KEY = 'quiz_progress';
+const LAST_RESULT_KEY = 'quiz_last_result';
+
+function getSavedQuizProgress() {
+  try {
+    return JSON.parse(localStorage.getItem(PROGRESS_KEY));
+  } catch (e) {
+    return null;
+  }
+}
+
+function saveQuizProgress() {
+  if (!currentSubject || !currentCard) return;
+  try {
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify({
+      subjectId: currentSubject.id,
+      queue,
+      currentCard,
+      sessionMissed,
+      sessionTotal,
+      sessionOk,
+      quizHistory,
+    }));
+  } catch (e) {}
+}
+
+function clearQuizProgress() {
+  localStorage.removeItem(PROGRESS_KEY);
+}
+
+function getSavedLastResult() {
+  try {
+    return JSON.parse(localStorage.getItem(LAST_RESULT_KEY));
+  } catch (e) {
+    return null;
+  }
+}
+
+function saveLastResult(result) {
+  try {
+    localStorage.setItem(LAST_RESULT_KEY, JSON.stringify(result));
+  } catch (e) {}
+}
+
+function clearLastResult() {
+  localStorage.removeItem(LAST_RESULT_KEY);
+}
+
+function getResumeSubjectName(progress) {
+  if (!progress) return '';
+  const subject = subjects.find(s => s.id === progress.subjectId);
+  return subject ? `${subject.icon} ${subject.name}` : progress.subjectId;
+}
+
+function updateResumeArea() {
+  const area = document.getElementById('resume-area');
+  const progress = getSavedQuizProgress();
+  if (!area) return;
+  if (!progress) {
+    area.innerHTML = '';
+    return;
+  }
+  const subjectName = getResumeSubjectName(progress);
+  area.innerHTML = `
+    <div class="section-label">途中で中断したクイズがあります</div>
+    <div style="margin:0.75rem 0 1rem;font-size:13px;color:var(--text2)">科目: ${subjectName}</div>
+    <button class="btn btn-primary btn-full" onclick="resumeQuiz()">続きから再開</button>`;
+}
+
+function saveProgressIfActive() {
+  const quizScreen = document.getElementById('s-quiz');
+  if (quizScreen.classList.contains('active') && currentCard) {
+    saveQuizProgress();
+  }
+}
+
+function saveCurrentResult() {
+  const lastResult = {
+    subjectId: currentSubject?.id,
+    subjectName: currentSubject ? `${currentSubject.icon} ${currentSubject.name}` : '',
+    total: sessionTotal,
+    ok: sessionOk,
+    rate: sessionTotal > 0 ? Math.round(sessionOk / sessionTotal * 100) : 0,
+    missed: sessionMissed,
+    timestamp: new Date().toISOString(),
+  };
+  saveLastResult(lastResult);
+}
+
+function showSavedResult() {
+  const saved = getSavedLastResult();
+  if (!saved) { alert('前回の結果が見つかりません。'); return; }
+  document.getElementById('r-subject').textContent = saved.subjectName ? `科目: ${saved.subjectName}` : '';
+  document.getElementById('r-badge').textContent = saved.rate === 100 ? '🏆' : saved.rate >= 80 ? '😊' : saved.rate >= 50 ? '📖' : '💪';
+  document.getElementById('r-title').textContent = saved.rate === 100 ? 'パーフェクト！' : saved.rate >= 80 ? 'よくできました！' : saved.rate >= 50 ? 'もう少し！' : 'がんばろう！';
+  document.getElementById('r-msg').textContent = `${saved.ok}/${saved.total}枚 · 正答率${saved.rate}%`;
+  document.getElementById('r-total').textContent = saved.total;
+  document.getElementById('r-ok').textContent = saved.ok;
+  document.getElementById('r-rate').textContent = saved.rate + '%';
+  sessionMissed = saved.missed || [];
+  document.getElementById('r-retry').style.display = sessionMissed.length > 0 ? '' : 'none';
+  const ml = document.getElementById('r-missed');
+  ml.innerHTML = saved.missed?.length > 0
+    ? '<div class="section-label" style="margin-bottom:8px">わからなかった問題</div>' +
+      saved.missed.map(q => `
+        <div class="missed-item">
+          <div class="missed-q">${q.q}</div>
+          <div class="missed-a">→ ${q.a}</div>
+        </div>`).join('')
+    : '';
+  showScreen('s-result');
+}
+
+function resetSavedProgress() {
+  clearQuizProgress();
+  updateResumeArea();
+}
+
+function clearResultIfNeeded() {
+  const saved = getSavedLastResult();
+  if (!saved) return;
+  saveLastResult(saved);
+}
+
+function getLastResultForSubject(subjectId) {
+  const saved = getSavedLastResult();
+  return saved && saved.subjectId === subjectId ? saved : null;
+}
+
+function hasSavedProgressForSubject(subjectId) {
+  const progress = getSavedQuizProgress();
+  return progress && progress.subjectId === subjectId;
+}
+
+function resumeQuiz() {
+  const progress = getSavedQuizProgress();
+  if (!progress) { alert('保存されたクイズの進行状況が見つかりません。'); return; }
+  const targetSubject = subjects.find(s => s.id === progress.subjectId);
+  if (!targetSubject) { alert('保存されたクイズの科目が見つかりません。'); return; }
+  currentSubject = targetSubject;
+  loadJSON(currentSubject.file)
+    .then(data => {
+      currentData = data;
+      queue = progress.queue;
+      currentCard = progress.currentCard;
+      sessionMissed = progress.sessionMissed;
+      sessionTotal = progress.sessionTotal;
+      sessionOk = progress.sessionOk;
+      quizHistory = progress.quizHistory;
+      showScreen('s-quiz');
+      renderCurrentCard();
+    })
+    .catch(() => alert('データの読み込みに失敗しました'));
+}
+
+function showLastResultButton(subjectId) {
+  const btn = document.getElementById('last-result-btn');
+  if (!btn) return;
+  btn.style.display = getLastResultForSubject(subjectId) ? '' : 'none';
+}
+
+function renderDashboardControls(subjectId) {
+  const continueBtn = document.getElementById('continue-quiz-btn');
+  const lastResultBtn = document.getElementById('last-result-btn');
+  if (continueBtn) continueBtn.style.display = hasSavedProgressForSubject(subjectId) ? '' : 'none';
+  if (lastResultBtn) lastResultBtn.style.display = getLastResultForSubject(subjectId) ? '' : 'none';
+}
+
+function getProgressSummary() {
+  const progress = getSavedQuizProgress();
+  if (!progress) return null;
+  return progress;
+}
+
+function showSavedResumeInfo() {
+  updateResumeArea();
+}
+
+function getSavedResult() {
+  return getSavedLastResult();
+}
+
+function saveProgressAfterStateChange() {
+  saveQuizProgress();
+}
+
+function discardProgress() {
+  clearQuizProgress();
+}
+
+function clearReviewState() {
+  clearQuizProgress();
+}
+
+function willResumeCurrentSubject(subjectId) {
+  return hasSavedProgressForSubject(subjectId);
+}
+
+function getSavedSubjectName() {
+  const progress = getSavedQuizProgress();
+  return progress ? getResumeSubjectName(progress) : '';
+}
+
+function getSavedQuizCheckpoint() {
+  return getSavedQuizProgress();
+}
+
+function getSavedQuizState() {
+  return getSavedQuizProgress();
+}
+
+function getSavedQuizProgressCount() {
+  const progress = getSavedQuizProgress();
+  return progress ? progress.queue?.length + 1 : 0;
+}
+
+function getSavedResultSummary() {
+  return getSavedLastResult();
+}
+
+function getSavedProgressInfo() {
+  const progress = getSavedQuizProgress();
+  if (!progress) return null;
+  return {
+    subjectId: progress.subjectId,
+    currentCount: progress.sessionTotal + 1,
+    remaining: progress.queue.length,
+  };
+}
+
+function refreshResumeButtons() {
+  if (currentSubject) renderDashboardControls(currentSubject.id);
+}
+
+function clearSavedProgressWithConfirm() {
+  if (confirm('保存された進行状況を破棄しますか？')) {
+    clearQuizProgress();
+    updateResumeArea();
+    if (currentSubject) renderDashboardControls(currentSubject.id);
+  }
+}
+
+function initSavedUi() {
+  updateResumeArea();
+}
+
 function getSubjectStats(subjectId) {
   if (!stats[subjectId]) stats[subjectId] = { total: 0, ok: 0, units: {} };
   return stats[subjectId];
@@ -84,6 +330,7 @@ function renderSubjectScreen() {
         <div class="subject-arrow">›</div>
       </div>`;
   }).join('');
+  updateResumeArea();
 }
 
 async function selectSubject(subjectId) {
@@ -108,6 +355,7 @@ function renderDashboard() {
   document.getElementById('d-ok').textContent = ss.ok;
   document.getElementById('d-rate').textContent = ss.total > 0 ? Math.round(ss.ok / ss.total * 100) + '%' : '-%';
 
+  renderDashboardControls(sid);
   const allWeak = Object.values(ss.units).reduce((a, u) => a + (u.weak?.length || 0), 0);
   document.getElementById('weak-btn').style.display = allWeak > 0 ? '' : 'none';
 
@@ -176,6 +424,7 @@ function beginQuiz() {
   sessionTotal = 0;
   sessionOk = 0;
   quizHistory = [];
+  clearQuizProgress();
   showScreen('s-quiz');
   nextCard();
 }
@@ -195,6 +444,7 @@ function renderCurrentCard() {
   document.getElementById('q-prog').style.width = (done / total * 100) + '%';
   document.getElementById('q-cnt').textContent = `${done + 1} / ${total}枚`;
   document.getElementById('prev-btn').style.display = quizHistory.length > 0 ? '' : 'none';
+  saveQuizProgress();
 }
 
 function nextCard() {
@@ -246,6 +496,9 @@ function prevCard() {
     ss.ok--;
     us.ok--;
     sessionOk--;
+  } else {
+    const missedIndex = sessionMissed.findIndex(q => q.id === previousCard.id && q.unit === previousCard.unit);
+    if (missedIndex >= 0) sessionMissed.splice(missedIndex, 1);
   }
   us.weak = last.prevWeak;
   if (currentCard) queue.unshift(currentCard);
@@ -258,6 +511,8 @@ function prevCard() {
 // 結果画面
 // ===========================
 function showResult() {
+  saveCurrentResult();
+  clearQuizProgress();
   showScreen('s-result');
   const rate = sessionTotal > 0 ? Math.round(sessionOk / sessionTotal * 100) : 0;
   let badge = '⭐', title = '', msg = '';
@@ -267,6 +522,7 @@ function showResult() {
   else { badge = '💪'; title = 'がんばろう！'; msg = `正答率${rate}%。くり返すのが大事！`; }
   document.getElementById('r-badge').textContent = badge;
   document.getElementById('r-title').textContent = title;
+  document.getElementById('r-subject').textContent = currentSubject ? `科目: ${currentSubject.icon} ${currentSubject.name}` : '';
   document.getElementById('r-msg').textContent = `${sessionOk}/${sessionTotal}枚 · ${msg}`;
   document.getElementById('r-total').textContent = sessionTotal;
   document.getElementById('r-ok').textContent = sessionOk;
@@ -284,18 +540,25 @@ function showResult() {
 }
 
 function retryMissed() { queue = [...sessionMissed]; beginQuiz(); }
+function saveAndQuit() {
+  if (!confirm('クイズを中断して戻りますか？途中から再開できます。')) return;
+  saveProgressIfActive();
+  showScreen('s-dash'); renderDashboard();
+}
 function confirmLeaveQuiz() {
   if (document.getElementById('s-quiz').classList.contains('active') && (currentCard || queue.length)) {
-    return confirm('クイズを中断して戻りますか？現在の進行は保持されません。');
+    return confirm('クイズを中断して戻りますか？途中から再開できます。');
   }
   return true;
 }
 function goHome() {
   if (!confirmLeaveQuiz()) return;
+  saveProgressIfActive();
   showScreen('s-dash'); renderDashboard();
 }
 function goSubjects() {
   if (!confirmLeaveQuiz()) return;
+  saveProgressIfActive();
   showScreen('s-subjects'); renderSubjectScreen();
 }
 function resetStats() {
