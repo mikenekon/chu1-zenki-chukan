@@ -493,6 +493,19 @@ function renderSimpleCard() {
 }
 
 function renderFillInBlankCard() {
+  const items = currentCard.items || [];
+  let html = `<div style="white-space:pre-wrap">${currentCard.q}\n</div>`;
+  if (items.length) {
+    html += '<div style="margin:1rem 0">';
+    items.forEach(item => {
+      const line = item.sentence
+        ? `${item.number || ''} ${item.sentence}`.trim()
+        : `${item.number || ''} ${item.prefix || ''}____${item.suffix || ''}`.trim();
+      html += `<div style="padding:8px;background:var(--bg2);border-radius:var(--radius);margin-bottom:6px">${line}</div>`;
+    });
+    html += '</div>';
+  }
+  document.getElementById('q-text').innerHTML = html;
   document.getElementById('quiz-btns').innerHTML = `
     <button class="btn btn-primary btn-full" onclick="revealAnswer()">答えを見る</button>`;
   document.getElementById('hint-text').textContent = 'スペース / Enter で答えを見る';
@@ -521,14 +534,29 @@ function renderMatchingCard() {
 }
 
 function renderRearrangeCard() {
-  const words = currentCard.words || [];
+  const items = currentCard.items || [];
   
   let html = `<div style="white-space:pre-wrap">${currentCard.q}\n</div>`;
-  html += '<div style="display:flex;flex-wrap:wrap;gap:8px;margin:1rem 0">';
-  words.forEach((word, i) => {
-    html += `<div style="padding:10px 12px;background:var(--info-bg);color:var(--info-text);border-radius:var(--radius);font-weight:500">${word}</div>`;
-  });
-  html += '</div>';
+  if (items.length) {
+    html += '<div style="margin:1rem 0">';
+    items.forEach(item => {
+      html += `<div style="margin-bottom:1rem">`;
+      html += `<div style="font-weight:600; margin-bottom:0.5rem">${item.number || ''} ${item.japanese || ''}</div>`;
+      html += '<div style="display:flex;flex-wrap:wrap;gap:8px">';
+      (item.words || []).forEach(word => {
+        html += `<div style="padding:10px 12px;background:var(--info-bg);color:var(--info-text);border-radius:var(--radius);font-weight:500">${word}</div>`;
+      });
+      html += '</div></div>';
+    });
+    html += '</div>';
+  } else {
+    const words = currentCard.words || [];
+    html += '<div style="display:flex;flex-wrap:wrap;gap:8px;margin:1rem 0">';
+    words.forEach((word, i) => {
+      html += `<div style="padding:10px 12px;background:var(--info-bg);color:var(--info-text);border-radius:var(--radius);font-weight:500">${word}</div>`;
+    });
+    html += '</div>';
+  }
   
   document.getElementById('q-text').innerHTML = html;
   document.getElementById('quiz-btns').innerHTML = `
@@ -537,13 +565,24 @@ function renderRearrangeCard() {
 }
 
 function renderCircleCorrectCard() {
+  const items = currentCard.items || [];
   const choices = currentCard.choices || [];
   const circleNums = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩'];
   
   let html = `<div style="white-space:pre-wrap">${currentCard.q}\n\n`;
-  choices.forEach((choice, i) => {
-    html += `${circleNums[i]} ${choice}\n`;
-  });
+  if (items.length) {
+    items.forEach((item, idx) => {
+      html += `${idx + 1}. ${item.expression}\n`;
+      item.choices?.forEach((choice, choiceIndex) => {
+        html += `  ${circleNums[choiceIndex]} ${choice}\n`;
+      });
+      html += '\n';
+    });
+  } else {
+    choices.forEach((choice, i) => {
+      html += `${circleNums[i]} ${choice}\n`;
+    });
+  }
   html += '</div>';
   
   document.getElementById('q-text').innerHTML = html;
@@ -556,21 +595,36 @@ function revealAnswer() {
   const qtype = getQuestionType(currentCard);
   
   if (qtype === 'fill_in_blank') {
-    document.getElementById('ans-text').textContent = `${currentCard.expectedAnswers?.join(' / ') || currentCard.a}`;
+    const items = currentCard.items || [];
+    if (items.length) {
+      document.getElementById('ans-text').textContent = items.map(item => item.answer || '').join('\n');
+    } else {
+      document.getElementById('ans-text').textContent = `${currentCard.expectedAnswers?.join(' / ') || currentCard.a}`;
+    }
   } else if (qtype === 'circle_correct') {
-    const correctIndex = currentCard.correctIndex !== undefined ? currentCard.correctIndex : 0;
-    const circleNums = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩'];
-    const correctChoice = currentCard.choices?.[correctIndex] || currentCard.a;
-    document.getElementById('ans-text').textContent = `${circleNums[correctIndex]} ${correctChoice}`;
+    const items = currentCard.items || [];
+    if (items.length) {
+      document.getElementById('ans-text').textContent = items.map((item, idx) => `${idx + 1}. ${item.answer}`).join('\n');
+    } else {
+      const correctIndex = currentCard.correctIndex !== undefined ? currentCard.correctIndex : 0;
+      const circleNums = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩'];
+      const correctChoice = currentCard.choices?.[correctIndex] || currentCard.a;
+      document.getElementById('ans-text').textContent = `${circleNums[correctIndex]} ${correctChoice}`;
+    }
   } else if (qtype === 'matching') {
     const items = currentCard.items || [];
     const pairs = items.map(item => `${item.left} → ${item.right}`).join('\n');
     document.getElementById('ans-text').textContent = pairs;
   } else if (qtype === 'rearrange') {
-    const words = currentCard.words || [];
-    const correctOrder = currentCard.correctOrder || [];
-    const correctSentence = correctOrder.map(idx => words[idx]).join(' ');
-    document.getElementById('ans-text').textContent = correctSentence;
+    const items = currentCard.items || [];
+    if (items.length) {
+      document.getElementById('ans-text').textContent = items.map(item => `${item.number || ''} ${item.answer || ''}`).join('\n');
+    } else {
+      const words = currentCard.words || [];
+      const correctOrder = currentCard.correctOrder || [];
+      const correctSentence = correctOrder.map(idx => words[idx]).join(' ');
+      document.getElementById('ans-text').textContent = correctSentence;
+    }
   } else {
     document.getElementById('ans-text').textContent = currentCard.a;
   }
