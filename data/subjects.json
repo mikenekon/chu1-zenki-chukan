@@ -5,13 +5,17 @@
     "file": "data/kanji.json"
   },
   {
+    "id": "kokugo",
+    "name": "国語",
+    "icon": "📝",
+    "file": "data/kokugo.json"
+  } ,
+  {
     "id": "rika",
     "name": "理科",
     "icon": "🔬",
     "file": "data/rika.json"
-  }
-
-  ,
+  } ,
   {
     "id": "english",
     "name": "英語",

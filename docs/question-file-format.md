@@ -1,14 +1,10 @@
-# 問題ファイルの作り方
+# 問題ファイルの作り方（このアプリ向け・更新版）
 
-このアプリでは、教科一覧と問題データを JSON ファイルで管理します。
-
-複数の問題形式に対応しており、シンプルな Q&A 形式から、穴埋め、選択肢、マッチング、並べ替えなどの複雑な問題型が選べます。
+このアプリは教科ごとの JSON データを読み込んでクイズを行います。ここでは現在の実装に合うよう、フィールドやローカル保存のルール、統計／復習機能との連携について整理します。
 
 ## 1. 教科一覧の定義
 
-`data/subjects.json` には、アプリで表示する教科の一覧を記載します。
-
-例:
+`data/subjects.json` に教科の一覧を置きます。例:
 
 ```json
 [
@@ -21,186 +17,189 @@
 ]
 ```
 
-項目の説明:
-- `id`: 教科を一意に識別する文字列。ファイル名や統計キーとして使われます。
-- `name`: 教科名。
-- `icon`: 教科を表すアイコン（絵文字など）。
+フィールド:
+- `id`: 教科を一意に識別する文字列（統計・進捗保存でキーとして使用）。
+- `name`: 表示用の教科名。
+- `icon`: 教科のアイコン（任意）。
 - `file`: 教科データの JSON ファイルパス（`index.html` からの相対パス）。
 
-新しい教科を追加するには、この配列にオブジェクトを追加します。
+## 2. ルート構成
 
----
-
-## 2. 問題ファイルの構成
-
-教科データは `data/<subject>.json` のような JSON ファイルで、次の形式にします。
-
-例（シンプル形式）:
+各教科ファイルは次の形です。
 
 ```json
 {
   "subject": "理科",
-  "version": "1.1",
+  "version": "1.0",
   "units": [
     {
-      "unit": "基礎操作",
-      "questions": [
-        {
-          "id": 1,
-          "type": "simple",
-          "q": "ルーペで手に持った花を観察するとき、正しいピントの合わせ方は？",
-          "a": "ルーペを目に近づけて持ち、花を前後に動かす",
-          "explanation": ""
-        },
-        {
-          "id": 2,
-          "type": "simple",
-          "q": "観察するものが動かせないとき、ルーペのピントはどう合わせるか？",
-          "a": "ルーペを目に近づけて持ち、顔（自分）を前後に動かす",
-          "explanation": ""
-        }
-      ]
+      "unit": "基礎",
+      "questions": [ /* 質問オブジェクトの配列 */ ]
     }
   ]
 }
 ```
 
-### ルートフィールド
-
+フィールド:
 - `subject`: 教科名（表示用）。
-- `version`: データのバージョン番号。必要に応じて更新してください。
-- `units`: 単元の配列。
+- `version`: データバージョン（変更時に更新）。
+- `units`: 単元配列。各単元は `unit` と `questions` を持ちます。
 
-### 単元オブジェクト
+## 3. 質問オブジェクト（共通）
 
-- `unit`: 単元名。
-- `questions`: その単元に含まれる問題の配列。
+- `id`: 教科内で一意な ID（数値または文字列）。`stats` の `weak` 配列はこの `id` を保持します。
+- `type`: 問題種別（省略時は `simple`）。
+- `q`: 問題文（表示用）。
+- `a`: 正答の表示用テキスト（答えを表示するときに使われます）。
+- `explanation`: 解説（任意、空文字でも可）。
 
-### 問題オブジェクト（共通フィールド）
+現在の実装で使われている主な `type` とフィールド例は次の通りです。
 
-- `id`: 問題 ID。各教科内で一意になるようにします。
-- `type`: 問題形式（省略可、デフォルト: "simple"）
-  - `"simple"`: シンプルな Q&A（答えを見てから ○/× で判定）
-  - `"fill_in_blank"`: 穴埋め問題
-  - `"circle_correct"`: 選択肢問題
-  - `"matching"`: マッチング問題
-  - `"rearrange"`: 並べ替え問題
-- `q`: 問題文。
-- `explanation`: くわしい解説。空文字 `""` でも構いません。
+### simple
 
----
-
-## 3. 問題形式の詳細
-
-### 3.1 simple（シンプル Q&A）
+シンプルな Q&A（答えを見てから ○/× を付ける）。
 
 ```json
 {
   "id": 1,
   "type": "simple",
-  "q": "問題文？",
-  "a": "答え",
-  "explanation": "詳しい解説"
+  "q": "水は何度で沸騰しますか？",
+  "a": "100℃",
+  "explanation": "標準気圧下での沸点は100℃です。"
 }
 ```
 
-- `a`: 答え（テキスト）
+実装メモ: 本アプリは「答えを表示してユーザーが ○/× で判定する」ワークフローを採用しています。`a` フィールドは表示用の解答（テキスト）として必ず用意してください。
 
-### 3.2 fill_in_blank（穴埋め）
+### fill_in_blank
+
+穴埋め。`items` または `expectedAnswers` を許容します（`english.json` の変換で使われる形式に合わせています）。
 
 ```json
 {
-  "id": 2,
+  "id": "U1-F1",
   "type": "fill_in_blank",
-  "q": "次の文を完成させて。",
-  "blanks": 2,
-  "expectedAnswers": ["答え1", "答え2"],
-  "a": "答え1 答え2（確認用）",
-  "explanation": ""
-}
-```
-
-- `blanks`: 空欄の個数
-- `expectedAnswers`: 各空欄に対する正答のリスト
-- `a`: 完成文全体（確認用）
-
-### 3.3 circle_correct（選択肢）
-
-```json
-{
-  "id": 3,
-  "type": "circle_correct",
-  "q": "正しい選択肢は？",
-  "choices": ["誤り1", "正解", "誤り2"],
-  "correctIndex": 1,
-  "a": "正解",
-  "explanation": ""
-}
-```
-
-- `choices`: 選択肢の配列
-- `correctIndex`: 正答の インデックス（0 から始まる）
-- `a`: 正答テキスト
-
-### 3.4 matching（マッチング）
-
-```json
-{
-  "id": 4,
-  "type": "matching",
-  "q": "対応する項目を線でつなごう。",
+  "q": "次の単語を完成させよ。",
   "items": [
-    {"left": "項目A1", "right": "対応B1"},
-    {"left": "項目A2", "right": "対応B2"}
+    { "number": "1", "prefix": "", "answer": "thir", "suffix": "teen", "hint": "4文字" }
   ],
-  "a": "すべて正しく対応させた場合の説明",
-  "explanation": ""
+  "expectedAnswers": ["thir"],
+  "a": "thir",
+  "explanation": "13は thirteen の thir"
 }
 ```
 
-- `items`: 左右の対応ペアの配列
+実装メモ: PDF 由来の `items` 配列（`number` / `prefix` / `answer` / `suffix` / `sentence` など）を保持している場合があります。アプリは `items` があるとそれを表示し、解答表示時に `answer` または `expectedAnswers` を結合して表示します。
 
-### 3.5 rearrange（並べ替え）
+### circle_correct
+
+選択肢問題。`choices` と `correctIndex`、あるいは `items`（複数小問）形式をサポートします。
 
 ```json
 {
-  "id": 5,
-  "type": "rearrange",
-  "q": "単語を並べかえて文を完成させよう。",
-  "words": ["word3", "word1", "word2"],
-  "correctOrder": [1, 2, 0],
-  "a": "word1 word2 word3",
-  "explanation": ""
+  "id": "C1-1",
+  "type": "circle_correct",
+  "q": "次のうち正しいものは？",
+  "choices": ["A","B","C"],
+  "correctIndex": 1,
+  "a": "B"
 }
 ```
 
-- `words`: シャッフルされた単語の配列
-- `correctOrder`: 正しい順序を示すインデックスの配列
-  - 例：`words` の インデックス 1, 2, 0 の順が正解
+または小問複数形式:
+
+```json
+{
+  "id": "SU3-3-1",
+  "type": "circle_correct",
+  "q": "20以上の数もわかるかな？",
+  "items": [
+    { "expression": "twenty", "choices": ["20","30"], "answer": "20" },
+    { "expression": "forty", "choices": ["40","50"], "answer": "40" }
+  ]
+}
+```
+
+実装メモ: PDF 由来の形式では、`items` 配列内に `expression` + `choices` + `answer` を持つ複数問題として定義されることがあります。アプリは `items` を逐次表示し、解答表示で各 `answer` を行ごとに表示します。
+
+### matching
+
+マッチング。`items` に `left`/`right` ペアを定義します。
+
+```json
+{
+  "id": "M1-1",
+  "type": "matching",
+  "q": "対応するものをつなごう",
+  "items": [ {"left":"1","right":"one"}, {"left":"2","right":"two"} ],
+  "a": "1 → one\n2 → two"
+}
+```
+
+`items` の要素例: `{"left": "A", "right": "B"}`。PDF 変換では `left/right` の代わりに別キーとなる場合があるため、変換スクリプトで `left`/`right` へ正規化してください。
+
+### rearrange / rearrange_with_extra
+
+語句の並べ替え。`items` を使う形式や単一 `words` + `correctOrder` 形式の両方に対応。
+
+```json
+{
+  "id": "R1-1",
+  "type": "rearrange",
+  "q": "語句を並べかえて文を作ろう。",
+  "items": [ { "number": 1, "japanese": "私は〜です", "words": ["I","am","Sota"], "answer": "I am Sota." } ]
+}
+```
+
+### dictation / write_word / write_sentence など
+
+記述系の問題は `items` 内それぞれを `simple` と同等に扱い、答えは `a` や `answer` に保持します。表示レンダリングは `js/app.js` の各種レンダラに依存します。
+
+## 4. 実装向けの拡張ルールと注意点
+
+- 表示ワークフロー: アプリは「問題を提示 → ユーザーが答えを見る（`revealAnswer()`）→ ユーザーが `○/×` 判定（`judge()`）」を基本にしています。したがって自動採点のための正規化（`correctIndex` や `expectedAnswers`）はあくまで表示や参照用に使われます。
+- `items` の多様性: PDF 由来データには以下のような `items` 形式が混在します。変換スクリプトで可能な限り下記の標準形へ揃えてください。
+  - マッチング: `{ "left": "A", "right": "B" }`
+  - 穴埋め: `{ "number": "1", "prefix": "", "answer": "thir", "suffix": "teen", "hint": "4文字" }` または `{ "number": 1, "sentence": "___ am from Tokyo." }`
+  - 選択式（複数）: `{ "expression": "twenty", "choices": ["20","30"], "answer": "20" }`
+  - 並べ替え（複数）: `{ "number": 1, "japanese": "…", "words": [...], "answer": "完成文" }`
+
+- 安全性: 現状アプリ内で `innerHTML` を利用している箇所があります。問題文や選択肢に HTML が含まれると XSS 的な表示崩れが起きる可能性があるため、データ生成時に `&`, `<`, `>` をエスケープするか、`q` と表示用のフィールドを別に持つことを推奨します。
+
+- ストレージキー: このアプリは以下の localStorage キーを使用します。ドキュメントや外部ツールがこれらを参照/操作する場合は注意してください。
+  - `quiz_stats` — 科目別の集計（`stats` オブジェクト）
+  - `quiz_progress` — 中断したクイズの進行保存（再開用）
+  - `quiz_last_result` — 直近の結果サマリ（結果画面で表示）
+
+- ID の扱い: `id` は文字列でも数値でも可ですが、科目内で一意にしてください。PDF からの変換では `SU3-1-1` のような文字列 ID を多用しています。
+
+## 5. 例: PDF 由来の複合問題をアプリ形式へ変換した例
+
+元（PDF由来）:
+
+```json
+{
+  "id": "SU3-3-1",
+  "type": "circle_correct",
+  "instruction": "20以上の数もわかるかな？",
+  "items": [ { "expression": "twenty", "choices": ["20","30"], "answer": "20" }, ... ]
+}
+```
+
+変換後（アプリ入力）:
+
+```json
+{
+  "id": "SU3-3-1",
+  "type": "circle_correct",
+  "q": "20以上の数もわかるかな？",
+  "items": [ { "expression": "twenty", "choices": ["20","30"], "answer": "20" }, ... ],
+  "a": "1. 20\n2. ..."
+}
+```
+
+変換スクリプトの利用を推奨します。`scripts/convert_english_questions.py` のように、PDF 元データを走査して上記標準形へ整形する小スクリプトを用意すると保守が楽になります。
 
 ---
 
-## 4. 追加の注意点
-
-- `id` は数字でも文字列でも扱えるが、同じ教科内では重複しないようにしてください。
-- `type` を省略した場合は自動的に `"simple"` として扱われます。
-- 問題ファイルは `fetch()` で読み込むため、ブラウザで開くだけでは動作しません。`Live Server` などのローカルサーバーで起動してください。
-- 教科データのファイル名は `data/subjects.json` の `file` プロパティと一致させます。
-
----
-
-## 5. 新しい教科を追加する手順
-
-1. `data/subjects.json` に新しい教科オブジェクトを追加する。
-2. `data/` に新しい JSON ファイルを作成する。
-3. その JSON ファイルに `subject` / `version` / `units` の構成を記載する。
-4. `units` 配列内に `unit` と `questions` を定義する。
-5. 各質問に `id`, `type`, `q`, `a`, `explanation` を入れる（`type` は省略可）。
-
----
-
-## 6. 既存ファイルの例
-
-現在の例では、`data/subjects.json` に `rika`（理科）と `english`（英語）が登録されており、それぞれのファイルに複数の単元と問題が定義されています。
-
-これを参考に、新しい教科ファイルを作ってください。
+このドキュメントはアプリの実装（`js/app.js`）に合わせて整理しています。必要なら `render` の挙動（例: 表示フォーマット）に合わせた追加のフィールド例を追記します。
