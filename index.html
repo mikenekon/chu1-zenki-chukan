@@ -225,6 +225,7 @@
     </div>
     <div class="btn-row" id="dashboard-controls" style="margin-bottom:1rem; gap:8px;">
       <button class="btn btn-primary" id="continue-quiz-btn" style="display:none" onclick="resumeQuiz()">途中で再開</button>
+      <button class="btn" id="review-list-btn" style="display:none" onclick="showReviewPage()">復習リストを見る</button>
       <button class="btn" id="last-result-btn" style="display:none" onclick="showSavedResult()">前回の結果を見る</button>
     </div>
     <div class="section-label">単元を選ぶ</div>
@@ -234,6 +235,13 @@
       <button class="btn" id="weak-btn" style="display:none;background:var(--ng-bg);color:var(--ng-text);border-color:var(--ng-border)" onclick="startWeak()">苦手だけ解く</button>
       <button class="btn" style="font-size:12px;color:var(--text2)" onclick="resetStats()">記録をリセット</button>
     </div>
+  </div>
+
+  <div id="s-review" class="screen">
+    <div class="back-link" onclick="showScreen('s-dash')">← ダッシュボードへ</div>
+    <div class="page-title">復習リスト</div>
+    <div class="page-sub">苦手問題を一覧で確認してから復習できます</div>
+    <div id="review-page-panel" class="review-panel"></div>
   </div>
 
   <!-- クイズ画面 -->

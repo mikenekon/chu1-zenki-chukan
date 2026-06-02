@@ -375,6 +375,8 @@ function renderDashboard() {
   renderDashboardControls(sid);
   const allWeak = Object.values(ss.units).reduce((a, u) => a + (u.weak?.length || 0), 0);
   document.getElementById('weak-btn').style.display = allWeak > 0 ? '' : 'none';
+  const reviewBtn = document.getElementById('review-list-btn');
+  if (reviewBtn) reviewBtn.style.display = allWeak > 0 ? '' : 'none';
 
   const el = document.getElementById('unit-list');
   el.innerHTML = currentData.units.map(u => {
@@ -420,6 +422,100 @@ function startAll() {
   const all = currentData.units.flatMap(u => u.questions.map(q => ({ ...q, unit: u.unit })));
   queue = shuffle(all);
   beginQuiz();
+}
+
+function escapeHtml(text) {
+  return String(text || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function getWeakReviewEntries(subjectId) {
+  const ss = getSubjectStats(subjectId);
+  if (!ss || !ss.units || !currentData) return [];
+
+  const allQuestions = currentData.units.flatMap(u =>
+    u.questions.map(q => ({ ...q, unit: u.unit }))
+  );
+
+  const entries = [];
+  for (const [unitName, unitStat] of Object.entries(ss.units)) {
+    const weakIds = unitStat.weak || [];
+    if (!weakIds.length) continue;
+    weakIds.forEach(id => {
+      const question = allQuestions.find(q => q.id === id);
+      const qText = question ? (question.q || question.instruction || question.sentence || '') : `ID:${id} (問題が見つかりません)`;
+      const aText = question ? (question.a || question.answer || (question.expectedAnswers ? question.expectedAnswers.join(' / ') : '')) : '';
+      const unitLabel = question ? question.unit : unitName;
+      entries.push({ unit: unitLabel, q: qText, a: aText, id });
+    });
+  }
+  return entries.sort((a, b) => {
+    if (a.unit !== b.unit) return a.unit.localeCompare(b.unit, 'ja');
+    return a.q.localeCompare(b.q, 'ja');
+  });
+}
+
+function getWeakUnitSummaries(subjectId) {
+  const ss = getSubjectStats(subjectId);
+  if (!ss || !ss.units) return [];
+  return Object.entries(ss.units)
+    .map(([unitName, unitStat]) => {
+      const total = unitStat.total || 0;
+      const ok = unitStat.ok || 0;
+      const weak = (unitStat.weak || []).length;
+      const rate = total > 0 ? Math.round(ok / total * 100) : 0;
+      return { unitName, total, ok, weak, rate };
+    })
+    .filter(u => u.weak > 0)
+    .sort((a, b) => a.rate - b.rate || b.weak - a.weak);
+}
+
+function showReviewPage() {
+  const sid = currentSubject?.id;
+  if (!sid) return;
+  renderReviewPage(sid);
+  showScreen('s-review');
+}
+
+function renderReviewPage(subjectId) {
+  const panel = document.getElementById('review-page-panel');
+  if (!panel) return;
+  const entries = getWeakReviewEntries(subjectId);
+  if (!entries.length) {
+    panel.innerHTML = '<div class="review-empty">現在、苦手問題はありません。</div>';
+    return;
+  }
+
+  const unitSummaries = getWeakUnitSummaries(subjectId);
+  const summaryText = unitSummaries.map(u => `${escapeHtml(u.unitName)} ${u.weak}問 (${u.rate}%)`).join(' / ');
+  const groups = entries.reduce((acc, entry) => {
+    acc[entry.unit] = acc[entry.unit] || [];
+    acc[entry.unit].push(entry);
+    return acc;
+  }, {});
+
+  const content = Object.entries(groups).map(([unitName, items]) => `
+    <div class="review-group">
+      <div class="review-group-title">${escapeHtml(unitName)} (${items.length}問)</div>
+      ${items.map(item => `
+        <div class="review-item">
+          <div class="review-item-title">${escapeHtml(item.q)}</div>
+          <div class="review-item-answer">答え: ${escapeHtml(item.a)}</div>
+        </div>`).join('')}
+    </div>`).join('');
+
+  panel.innerHTML = `
+    <div class="review-summary-row">
+      <div class="review-summary-text">苦手問題: <strong>${entries.length}問</strong></div>
+      <div class="review-summary-badges">${summaryText}</div>
+    </div>
+    ${content}
+    <div class="btn-row" style="margin-top:1rem; gap:8px;">
+      <button class="btn btn-primary" onclick="startWeak()">苦手だけ解く</button>
+      <button class="btn" onclick="showScreen('s-dash')">ダッシュボードへ</button>
+    </div>`;
 }
 
 function startWeak() {
