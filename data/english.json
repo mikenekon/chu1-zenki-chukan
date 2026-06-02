@@ -3,18 +3,115 @@
   "version": "1.0",
   "units": [
     {
-      "unit": "Vocabulary",
+      "unit": "Numbers & Days",
       "questions": [
         {
           "id": 1,
-          "q": "Example: What is the meaning of 'apple'?",
-          "a": "A fruit that is typically red, green, or yellow.",
+          "type": "circle_correct",
+          "q": "What is the English word for the number 1?",
+          "choices": ["two", "one", "three"],
+          "correctIndex": 1,
+          "a": "one",
           "explanation": ""
         },
         {
           "id": 2,
-          "q": "Example: What is the plural of 'child'?",
-          "a": "children",
+          "type": "circle_correct",
+          "q": "What is the English word for the number 5?",
+          "choices": ["five", "four", "six"],
+          "correctIndex": 0,
+          "a": "five",
+          "explanation": ""
+        },
+        {
+          "id": 3,
+          "type": "fill_in_blank",
+          "q": "Complete the sentence: \"I ___ Eri.\"",
+          "blanks": 1,
+          "expectedAnswers": ["am"],
+          "a": "I am Eri.",
+          "explanation": ""
+        },
+        {
+          "id": 4,
+          "type": "fill_in_blank",
+          "q": "Complete the sentence: \"I ___ ___ Japan.\"",
+          "blanks": 2,
+          "expectedAnswers": ["am", "from"],
+          "a": "I am from Japan.",
+          "explanation": ""
+        },
+        {
+          "id": 5,
+          "type": "circle_correct",
+          "q": "What is the correct sentence?",
+          "choices": ["I like spring", "I likes spring", "I like to spring"],
+          "correctIndex": 0,
+          "a": "I like spring",
+          "explanation": ""
+        },
+        {
+          "id": 6,
+          "type": "matching",
+          "q": "対応する数字と英語をマッチングしよう。",
+          "items": [
+            {"left": "1", "right": "one"},
+            {"left": "2", "right": "two"},
+            {"left": "3", "right": "three"},
+            {"left": "4", "right": "four"},
+            {"left": "5", "right": "five"}
+          ],
+          "a": "1-one, 2-two, 3-three, 4-four, 5-five",
+          "explanation": ""
+        }
+      ]
+    },
+    {
+      "unit": "Greetings & Introductions",
+      "questions": [
+        {
+          "id": 7,
+          "type": "circle_correct",
+          "q": "How do you say \"hello\" in English?",
+          "choices": ["goodbye", "hello", "good night"],
+          "correctIndex": 1,
+          "a": "hello",
+          "explanation": ""
+        },
+        {
+          "id": 8,
+          "type": "fill_in_blank",
+          "q": "Complete the greeting: \"___ are you?\"",
+          "blanks": 1,
+          "expectedAnswers": ["how"],
+          "a": "How are you?",
+          "explanation": ""
+        },
+        {
+          "id": 9,
+          "type": "circle_correct",
+          "q": "Which is a polite way to introduce yourself?",
+          "choices": ["My name is Christina.", "I are Christina.", "Christina I."],
+          "correctIndex": 0,
+          "a": "My name is Christina.",
+          "explanation": ""
+        },
+        {
+          "id": 10,
+          "type": "rearrange",
+          "q": "単語を並べかえて正しい文を作ろう。",
+          "words": ["Eri", "am", "I"],
+          "correctOrder": [2, 1, 0],
+          "a": "I am Eri.",
+          "explanation": ""
+        },
+        {
+          "id": 11,
+          "type": "rearrange",
+          "q": "単語を並べかえて正しい文を作ろう。",
+          "words": ["Japan", "from", "I'm"],
+          "correctOrder": [2, 1, 0],
+          "a": "I'm from Japan.",
           "explanation": ""
         }
       ]

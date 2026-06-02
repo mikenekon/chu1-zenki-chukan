@@ -449,13 +449,35 @@ function beginQuiz() {
 // ===========================
 // カード画面
 // ===========================
+function getQuestionType(card) {
+  return card.type || 'simple';
+}
+
 function renderCurrentCard() {
   document.getElementById('q-unit-tag').textContent = `${currentSubject.icon} ${currentSubject.name} · ${currentCard.unit}`;
-  document.getElementById('q-text').textContent = currentCard.q;
   document.getElementById('ans-area').style.display = 'none';
-  document.getElementById('quiz-btns').innerHTML = `
-    <button class="btn btn-primary btn-full" onclick="revealAnswer()">答えを見る</button>`;
-  document.getElementById('hint-text').textContent = 'スペース / Enter で答えを見る';
+  document.getElementById('quiz-btns').innerHTML = '';
+  document.getElementById('hint-text').textContent = '';
+  
+  const qtype = getQuestionType(currentCard);
+  
+  if (qtype === 'simple' || !qtype) {
+    document.getElementById('q-text').textContent = currentCard.q;
+    renderSimpleCard();
+  } else if (qtype === 'fill_in_blank') {
+    document.getElementById('q-text').textContent = currentCard.q;
+    renderFillInBlankCard();
+  } else if (qtype === 'circle_correct') {
+    renderCircleCorrectCard();
+  } else if (qtype === 'matching') {
+    renderMatchingCard();
+  } else if (qtype === 'rearrange') {
+    renderRearrangeCard();
+  } else {
+    document.getElementById('q-text').textContent = currentCard.q;
+    renderSimpleCard();
+  }
+  
   const done = sessionTotal;
   const total = done + queue.length + 1;
   document.getElementById('q-prog').style.width = (done / total * 100) + '%';
@@ -464,14 +486,95 @@ function renderCurrentCard() {
   saveQuizProgress();
 }
 
-function nextCard() {
-  if (!queue.length) { showResult(); return; }
-  currentCard = queue.shift();
-  renderCurrentCard();
+function renderSimpleCard() {
+  document.getElementById('quiz-btns').innerHTML = `
+    <button class="btn btn-primary btn-full" onclick="revealAnswer()">答えを見る</button>`;
+  document.getElementById('hint-text').textContent = 'スペース / Enter で答えを見る';
+}
+
+function renderFillInBlankCard() {
+  document.getElementById('quiz-btns').innerHTML = `
+    <button class="btn btn-primary btn-full" onclick="revealAnswer()">答えを見る</button>`;
+  document.getElementById('hint-text').textContent = 'スペース / Enter で答えを見る';
+}
+
+function renderMatchingCard() {
+  const items = currentCard.items || [];
+  const rightShuffled = items.map(i => i.right).sort(() => Math.random() - 0.5);
+  
+  let html = `<div style="white-space:pre-wrap">${currentCard.q}\n</div>`;
+  html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0">';
+  html += '<div>';
+  items.forEach((item, i) => {
+    html += `<div style="padding:8px;background:var(--bg2);border-radius:var(--radius);margin-bottom:6px">${item.left}</div>`;
+  });
+  html += '</div><div>';
+  rightShuffled.forEach((right) => {
+    html += `<div style="padding:8px;background:var(--bg2);border-radius:var(--radius);margin-bottom:6px">${right}</div>`;
+  });
+  html += '</div></div>';
+  
+  document.getElementById('q-text').innerHTML = html;
+  document.getElementById('quiz-btns').innerHTML = `
+    <button class="btn btn-primary btn-full" onclick="revealAnswer()">答えを見る</button>`;
+  document.getElementById('hint-text').textContent = 'スペース / Enter で答えを見る';
+}
+
+function renderRearrangeCard() {
+  const words = currentCard.words || [];
+  
+  let html = `<div style="white-space:pre-wrap">${currentCard.q}\n</div>`;
+  html += '<div style="display:flex;flex-wrap:wrap;gap:8px;margin:1rem 0">';
+  words.forEach((word, i) => {
+    html += `<div style="padding:10px 12px;background:var(--info-bg);color:var(--info-text);border-radius:var(--radius);font-weight:500">${word}</div>`;
+  });
+  html += '</div>';
+  
+  document.getElementById('q-text').innerHTML = html;
+  document.getElementById('quiz-btns').innerHTML = `
+    <button class="btn btn-primary btn-full" onclick="revealAnswer()">答えを見る</button>`;
+  document.getElementById('hint-text').textContent = 'スペース / Enter で答えを見る';
+}
+
+function renderCircleCorrectCard() {
+  const choices = currentCard.choices || [];
+  const circleNums = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩'];
+  
+  let html = `<div style="white-space:pre-wrap">${currentCard.q}\n\n`;
+  choices.forEach((choice, i) => {
+    html += `${circleNums[i]} ${choice}\n`;
+  });
+  html += '</div>';
+  
+  document.getElementById('q-text').innerHTML = html;
+  document.getElementById('quiz-btns').innerHTML = `
+    <button class="btn btn-primary btn-full" onclick="revealAnswer()">答えを見る</button>`;
+  document.getElementById('hint-text').textContent = 'スペース / Enter で答えを見る';
 }
 
 function revealAnswer() {
-  document.getElementById('ans-text').textContent = currentCard.a;
+  const qtype = getQuestionType(currentCard);
+  
+  if (qtype === 'fill_in_blank') {
+    document.getElementById('ans-text').textContent = `${currentCard.expectedAnswers?.join(' / ') || currentCard.a}`;
+  } else if (qtype === 'circle_correct') {
+    const correctIndex = currentCard.correctIndex !== undefined ? currentCard.correctIndex : 0;
+    const circleNums = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩'];
+    const correctChoice = currentCard.choices?.[correctIndex] || currentCard.a;
+    document.getElementById('ans-text').textContent = `${circleNums[correctIndex]} ${correctChoice}`;
+  } else if (qtype === 'matching') {
+    const items = currentCard.items || [];
+    const pairs = items.map(item => `${item.left} → ${item.right}`).join('\n');
+    document.getElementById('ans-text').textContent = pairs;
+  } else if (qtype === 'rearrange') {
+    const words = currentCard.words || [];
+    const correctOrder = currentCard.correctOrder || [];
+    const correctSentence = correctOrder.map(idx => words[idx]).join(' ');
+    document.getElementById('ans-text').textContent = correctSentence;
+  } else {
+    document.getElementById('ans-text').textContent = currentCard.a;
+  }
+  
   document.getElementById('ans-area').style.display = 'block';
   document.getElementById('quiz-btns').innerHTML = `
     <div class="judge-row">
@@ -497,6 +600,12 @@ function judge(ok) {
   }
   saveStats();
   nextCard();
+}
+
+function nextCard() {
+  if (!queue.length) { showResult(); return; }
+  currentCard = queue.shift();
+  renderCurrentCard();
 }
 
 function prevCard() {

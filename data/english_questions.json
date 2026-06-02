@@ -1,0 +1,1490 @@
+{
+  "title": "めきめき英単語１ 問題集",
+  "sections": [
+    {
+      "section": "Start Up! English ③ 数・曜日・月",
+      "unit": "Start Up",
+      "questions": [
+        {
+          "id": "SU3-1-1",
+          "type": "matching",
+          "instruction": "数字とその英語のつづりを線でつなごう。",
+          "items": [
+            {"left": "1", "right": "one"},
+            {"left": "2", "right": "two"},
+            {"left": "3", "right": "three"},
+            {"left": "4", "right": "four"},
+            {"left": "5", "right": "five"},
+            {"left": "6", "right": "six"},
+            {"left": "7", "right": "seven"},
+            {"left": "8", "right": "eight"},
+            {"left": "9", "right": "nine"},
+            {"left": "10", "right": "ten"}
+          ]
+        },
+        {
+          "id": "SU3-2-1",
+          "type": "fill_in_blank",
+          "instruction": "11〜19の数のつづりを完成させよう。",
+          "items": [
+            {"number": "13", "prefix": "", "answer": "thir", "suffix": "teen", "hint": "4文字書こう"},
+            {"number": "14", "prefix": "", "answer": "four", "suffix": "teen", "hint": "4文字"},
+            {"number": "16", "prefix": "", "answer": "six", "suffix": "teen", "hint": "3文字"},
+            {"number": "17", "prefix": "", "answer": "seven", "suffix": "teen", "hint": "5文字"},
+            {"number": "19", "prefix": "", "answer": "nine", "suffix": "teen", "hint": "4文字"}
+          ]
+        },
+        {
+          "id": "SU3-3-1",
+          "type": "circle_correct",
+          "instruction": "20以上の数もわかるかな？対応する数字、またはつづりを選んで○で囲もう。",
+          "items": [
+            {"expression": "twenty", "choices": ["20", "30"], "answer": "20"},
+            {"expression": "forty", "choices": ["40", "50"], "answer": "40"},
+            {"expression": "sixty", "choices": ["16", "60"], "answer": "60"},
+            {"expression": "21", "choices": ["twelve", "twenty-one"], "answer": "twenty-one"},
+            {"expression": "38", "choices": ["thirty-eight", "eighty-three"], "answer": "thirty-eight"},
+            {"expression": "97", "choices": ["fifty-seven", "ninety-seven"], "answer": "ninety-seven"}
+          ]
+        },
+        {
+          "id": "SU3-4-1",
+          "type": "matching",
+          "instruction": "曜日とその単語のつづりを線でつなごう。また、単語の中の空らんには大文字を1文字入れよう。",
+          "items": [
+            {"left": "日曜日", "right": "Sunday"},
+            {"left": "月曜日", "right": "Monday", "blank_hint": "M"},
+            {"left": "火曜日", "right": "Tuesday"},
+            {"left": "水曜日", "right": "Wednesday", "blank_hint": "W"},
+            {"left": "木曜日", "right": "Saturday", "blank_hint": "S"},
+            {"left": "金曜日", "right": "Thursday"},
+            {"left": "土曜日", "right": "Friday", "blank_hint": "F"}
+          ],
+          "note": "空らんはMonday→M、Wednesday→W、Saturday→S、Friday→F"
+        },
+        {
+          "id": "SU3-5-1",
+          "type": "matching",
+          "instruction": "月とその単語のつづりを線でつなごう。また、単語の中の空らんには大文字を1文字入れよう。",
+          "items": [
+            {"left": "1月", "right": "January"},
+            {"left": "2月", "right": "March", "blank_hint": "M"},
+            {"left": "3月", "right": "February"},
+            {"left": "4月", "right": "May"},
+            {"left": "5月", "right": "April", "blank_hint": "A"},
+            {"left": "6月", "right": "June", "blank_hint": "J"},
+            {"left": "7月", "right": "November", "blank_hint": "N"},
+            {"left": "8月", "right": "July"},
+            {"left": "9月", "right": "August"},
+            {"left": "10月", "right": "September", "blank_hint": "S"},
+            {"left": "11月", "right": "October"},
+            {"left": "12月", "right": "December", "blank_hint": "D"}
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Let's Be Friends! 単語を書こう",
+      "unit": "Let's Be Friends",
+      "questions": [
+        {
+          "id": "LBF-1-1",
+          "type": "write_word",
+          "instruction": "英単語を書いてみよう。（右のボックスの中から選んで書こう。）",
+          "word_bank": {
+            "食べ物・飲み物": ["apple", "egg", "milk", "lemon"],
+            "動物": ["dog", "octopus", "fish", "rabbit", "cat", "tiger"],
+            "身の回りにあるもの": ["notebook", "box", "guitar", "pencil", "hat", "watch", "piano", "ink"],
+            "色": ["blue", "red", "yellow", "green"],
+            "スポーツ": ["soccer", "baseball", "volleyball", "swimming"]
+          },
+          "items": [
+            {"number": 1, "japanese": "たまご", "answer": "egg"},
+            {"number": 2, "japanese": "リンゴ", "answer": "apple"},
+            {"number": 3, "japanese": "レモン", "answer": "lemon"},
+            {"number": 4, "japanese": "牛乳", "answer": "milk"},
+            {"number": 5, "japanese": "トラ", "answer": "tiger"},
+            {"number": 6, "japanese": "イヌ", "answer": "dog"},
+            {"number": 7, "japanese": "ウサギ", "answer": "rabbit"},
+            {"number": 8, "japanese": "ネコ", "answer": "cat"},
+            {"number": 9, "japanese": "魚", "answer": "fish"},
+            {"number": 10, "japanese": "タコ", "answer": "octopus"},
+            {"number": 11, "japanese": "腕時計", "answer": "watch"},
+            {"number": 12, "japanese": "帽子", "answer": "hat"},
+            {"number": 13, "japanese": "鉛筆", "answer": "pencil"},
+            {"number": 14, "japanese": "ノート", "answer": "notebook"},
+            {"number": 15, "japanese": "インク", "answer": "ink"},
+            {"number": 16, "japanese": "箱", "answer": "box"},
+            {"number": 17, "japanese": "ピアノ", "answer": "piano"},
+            {"number": 18, "japanese": "ギター", "answer": "guitar"},
+            {"number": 19, "japanese": "緑色", "answer": "green"},
+            {"number": 20, "japanese": "赤色", "answer": "red"},
+            {"number": 21, "japanese": "青色", "answer": "blue"},
+            {"number": 22, "japanese": "黄色", "answer": "yellow"},
+            {"number": 23, "japanese": "野球", "answer": "baseball"},
+            {"number": 24, "japanese": "バレーボール", "answer": "volleyball"},
+            {"number": 25, "japanese": "サッカー", "answer": "soccer"},
+            {"number": 26, "japanese": "水泳", "answer": "swimming"}
+          ]
+        },
+        {
+          "id": "LBF-2-1",
+          "type": "write_romaji",
+          "instruction": "人名や地名をローマ字（ヘボン式）で書こう。①は書き写し、②③は自分のことを書こう。",
+          "items": [
+            {"number": 1, "japanese": "井村光太郎", "answer": "Imura Kotaro"},
+            {"number": 2, "japanese": "後藤絵里", "answer": "Goto Eri"},
+            {"number": 3, "japanese": "宮城（地名）", "answer": "Miyagi"}
+          ]
+        },
+        {
+          "id": "LBF-3-1",
+          "type": "write_sentence",
+          "instruction": "「英文を書くときの注意点」を参考にして、次の場面で使われる英語を書こう。",
+          "items": [
+            {
+              "number": 1,
+              "instruction": "上の文を書き写そう。",
+              "answer": "My name is Christina Rios."
+            },
+            {
+              "number": 2,
+              "instruction": "自分の名前を伝えよう。",
+              "answer": "My name is （自分の名前）."
+            },
+            {
+              "number": 3,
+              "instruction": "好きな食べ物を聞く文を書き写そう。",
+              "answer": "What food do you like?"
+            },
+            {
+              "number": 4,
+              "instruction": "自分が好きな食べ物を伝えよう。",
+              "answer": "I like （自分の好きな食べ物）."
+            }
+          ]
+        },
+        {
+          "id": "LBF-4-1",
+          "type": "write_sentence",
+          "instruction": "各対話場面で使われる英語を書こう。",
+          "items": [
+            {
+              "number": 1,
+              "scene": "誕生日について話している",
+              "prompt": "When is your birthday?",
+              "instruction": "①　聞いた文を書き写そう。",
+              "answer": "When is your birthday?"
+            },
+            {
+              "number": 2,
+              "instruction": "②　自分の誕生日を伝えよう。",
+              "answer": "My birthday is （自分の誕生日の日付）."
+            },
+            {
+              "number": 3,
+              "scene": "好きな色について話している",
+              "prompt": "What color do you like?",
+              "instruction": "③　聞いた文を書き写そう。",
+              "answer": "What color do you like?"
+            },
+            {
+              "number": 4,
+              "instruction": "④　自分が好きな色を伝えよう。",
+              "answer": "I like （自分の好きな色）."
+            },
+            {
+              "number": 5,
+              "scene": "放課後したいことについて話している",
+              "prompt": "What do you want to do?",
+              "instruction": "⑤　聞いた文を書き写そう。",
+              "answer": "What do you want to do?"
+            },
+            {
+              "number": 6,
+              "instruction": "⑥　自分がしたいことを伝えよう。",
+              "answer": "I want to （したいこと）."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Unit 1 Part 1 「私は〜です」I am",
+      "unit": "Unit 1",
+      "part": 1,
+      "questions": [
+        {
+          "id": "U1P1-warm-1",
+          "type": "fill_in_blank",
+          "instruction": "国の名前：空らんにつづりを書こう。",
+          "items": [
+            {"japanese": "日本", "answer": "Japan"},
+            {"japanese": "イギリス", "answer": "the U.K."},
+            {"japanese": "カナダ", "answer": "Canada"},
+            {"japanese": "アメリカ", "answer": "the U.S."}
+          ]
+        },
+        {
+          "id": "U1P1-textbook-1",
+          "type": "fill_in_blank",
+          "instruction": "教科書p.29の基本文を完成させよう。",
+          "items": [
+            {
+              "japanese": "私はエリです。",
+              "sentence": "___ Eri.",
+              "blanks": ["I'm"],
+              "answer": "I'm Eri."
+            },
+            {
+              "japanese": "私はこの学校の生徒です。",
+              "sentence": "___ a student there.",
+              "blanks": ["I'm"],
+              "answer": "I'm a student there."
+            },
+            {
+              "japanese": "私は日本出身です。",
+              "sentence": "___ from Japan.",
+              "blanks": ["I'm"],
+              "answer": "I'm from Japan."
+            }
+          ]
+        },
+        {
+          "id": "U1P1-A-step1",
+          "type": "select_fill",
+          "instruction": "日本語に合うように、ボックス内から適切な語を選んで書こう。",
+          "word_bank": ["am", "from", "I"],
+          "items": [
+            {
+              "number": "(1)",
+              "japanese": "ぼくは 井村光太郎 です。",
+              "sentence": "___ ___ Imura Kotaro.",
+              "answer": "I am"
+            },
+            {
+              "number": "(2)",
+              "japanese": "私は 京都出身 です。",
+              "sentence": "I ___ ___ Kyoto.",
+              "answer": "am from"
+            }
+          ]
+        },
+        {
+          "id": "U1P1-A-step2",
+          "type": "fill_in_blank",
+          "instruction": "日本語に合うように、空らんに適切な語を書こう。",
+          "items": [
+            {
+              "number": "(1)",
+              "japanese": "私はミユです。",
+              "sentence": "I ___ Miyu.",
+              "answer": "am"
+            },
+            {
+              "number": "(2)",
+              "japanese": "ぼくはユウタです。",
+              "sentence": "___ Yuta.",
+              "answer": "I'm",
+              "hint": "短縮形を書こう"
+            },
+            {
+              "number": "(3)",
+              "japanese": "私はバレーボール選手です。",
+              "sentence": "___ a volleyball player.",
+              "answer": "I'm"
+            },
+            {
+              "number": "(4)",
+              "japanese": "私はうれしいです。",
+              "sentence": "I ___ happy.",
+              "answer": "am"
+            },
+            {
+              "number": "(5)",
+              "japanese": "私は眠いです。",
+              "sentence": "___ sleepy.",
+              "answer": "I'm"
+            },
+            {
+              "number": "(6)",
+              "japanese": "私は13歳です。",
+              "sentence": "___ ___ 13 years old.",
+              "answer": "I am"
+            },
+            {
+              "number": "(7)",
+              "japanese": "ぼくはブラジル出身です。",
+              "sentence": "I ___ ___ Brazil.",
+              "answer": "am from"
+            },
+            {
+              "number": "(8)",
+              "japanese": "私は韓国出身です。",
+              "sentence": "___ ___ Korea.",
+              "answer": "I'm from"
+            }
+          ]
+        },
+        {
+          "id": "U1P1-B-step3",
+          "type": "rearrange",
+          "instruction": "語句を並べかえて対話を完成させよう。②と③はあとに続く文も考えよう。",
+          "items": [
+            {
+              "number": 1,
+              "japanese": "ぼくはソウタです。",
+              "words": ["am", "I", "Sota", "."],
+              "answer": "I am Sota."
+            },
+            {
+              "number": 2,
+              "japanese": "ぼくはカナダ出身です。",
+              "words": ["Canada", "I'm", "from", "."],
+              "answer": "I'm from Canada."
+            },
+            {
+              "number": 3,
+              "japanese": "私はメグです。私は12歳です。（I'm Meg.に続く文）",
+              "words": ["12", "I'm", "years old", "."],
+              "answer": "I'm 12 years old."
+            }
+          ]
+        },
+        {
+          "id": "U1P1-kikichare",
+          "type": "dictation",
+          "instruction": "聞きチャレ！ 書き取ろう",
+          "sentence_template": "I ___ ___ Tokyo.",
+          "answer": "I am from Tokyo."
+        }
+      ]
+    },
+    {
+      "section": "Unit 1 Part 2 「〜が好きです」「〜が好きではありません」",
+      "unit": "Unit 1",
+      "part": 2,
+      "questions": [
+        {
+          "id": "U1P2-furi-1",
+          "type": "fill_in_blank",
+          "instruction": "ふり返り「私は〜です」：日本語に合うように、空らんに適切な語を書こう。",
+          "items": [
+            {
+              "japanese": "私はソウタです。",
+              "sentence": "I ___ Sota.",
+              "answer": "am"
+            }
+          ]
+        },
+        {
+          "id": "U1P2-textbook-1",
+          "type": "fill_in_blank",
+          "instruction": "教科書p.31の基本文を完成させよう。",
+          "items": [
+            {
+              "japanese": "私は春が好きです。",
+              "sentence": "I ___ spring.",
+              "answer": "like"
+            },
+            {
+              "japanese": "私は春が好きではありません。",
+              "sentence": "I ___ ___ spring.",
+              "answer": "don't like"
+            }
+          ]
+        },
+        {
+          "id": "U1P2-A-step1",
+          "type": "select_fill",
+          "instruction": "日本語に合うように、ボックス内から適切な語を選んで書こう。",
+          "word_bank": ["like", "don't"],
+          "items": [
+            {
+              "number": "(1)",
+              "japanese": "私は 4月が 好きです。",
+              "sentence": "I ___ April.",
+              "answer": "like"
+            },
+            {
+              "number": "(2)",
+              "japanese": "私は チーズが 好きではありません。",
+              "sentence": "I ___ ___ cheese.",
+              "answer": "don't like"
+            }
+          ]
+        },
+        {
+          "id": "U1P2-A-step2",
+          "type": "fill_in_blank",
+          "instruction": "日本語に合うように、空らんに適切な語を書こう。",
+          "items": [
+            {
+              "number": "(1)",
+              "japanese": "私は青が好きです。",
+              "sentence": "I ___ blue.",
+              "answer": "like"
+            },
+            {
+              "number": "(2)",
+              "japanese": "私は塾に行きません。",
+              "sentence": "___ ___ go to juku.",
+              "answer": "I don't"
+            },
+            {
+              "number": "(3)",
+              "japanese": "私は英語を勉強します。",
+              "sentence": "I ___ English.",
+              "answer": "study"
+            },
+            {
+              "number": "(4)",
+              "japanese": "私はバレーボールをします。",
+              "sentence": "___ ___ volleyball.",
+              "answer": "I play"
+            },
+            {
+              "number": "(5)",
+              "japanese": "私はトランペットを演奏しません。",
+              "sentence": "I ___ ___ the trumpet.",
+              "answer": "don't play"
+            },
+            {
+              "number": "(6)",
+              "japanese": "私は夏が好きではありません。",
+              "sentence": "I ___ ___ summer.",
+              "answer": "don't like"
+            }
+          ]
+        },
+        {
+          "id": "U1P2-B-step3",
+          "type": "rearrange",
+          "instruction": "語句を並べかえて対話を完成させよう。②と③はあとに続く文も答えよう。",
+          "items": [
+            {
+              "number": 1,
+              "japanese": "私は音楽が好きなの。",
+              "words": ["I", "music", "like", "."],
+              "answer": "I like music."
+            },
+            {
+              "number": 2,
+              "japanese": "ぼくはさくら町に住んでいるよ。",
+              "words": ["live", "I", "Sakura Town", "in", "."],
+              "answer": "I live in Sakura Town."
+            },
+            {
+              "number": 3,
+              "japanese": "ぼくは魚が好きじゃないんだ。",
+              "words": ["don't", "fish", "I", "like", "."],
+              "answer": "I don't like fish."
+            }
+          ]
+        },
+        {
+          "id": "U1P2-kikichare",
+          "type": "dictation",
+          "instruction": "聞きチャレ！ 書き取ろう",
+          "sentence_template": "I ___ ___ winter.",
+          "answer": "I don't like winter."
+        }
+      ]
+    },
+    {
+      "section": "Unit 1 Part 3 「〜できます」「〜できません」",
+      "unit": "Unit 1",
+      "part": 3,
+      "questions": [
+        {
+          "id": "U1P3-furi-1",
+          "type": "fill_in_blank",
+          "instruction": "ふり返り「〜します」「〜しません」：日本語に合うように、空らんに適切な語を書こう。",
+          "items": [
+            {
+              "number": "(1)",
+              "japanese": "私はピアノをひきます。",
+              "sentence": "I ___ the piano.",
+              "answer": "play"
+            },
+            {
+              "number": "(2)",
+              "japanese": "私はフルートを演奏しません。",
+              "sentence": "I ___ play the flute.",
+              "answer": "don't"
+            }
+          ]
+        },
+        {
+          "id": "U1P3-textbook-1",
+          "type": "fill_in_blank",
+          "instruction": "教科書p.33の基本文を完成させよう。",
+          "items": [
+            {
+              "japanese": "私はドラムを演奏できます。",
+              "sentence": "I ___ play the drums.",
+              "answer": "can"
+            },
+            {
+              "japanese": "私はドラムを演奏できません。",
+              "sentence": "I ___ play the drums.",
+              "answer": "can't"
+            }
+          ]
+        },
+        {
+          "id": "U1P3-A-step1",
+          "type": "select_fill",
+          "instruction": "日本語に合うように、ボックス内から適切な語を選んで書こう。",
+          "word_bank": ["can", "can't", "swim", "do"],
+          "items": [
+            {
+              "number": "(1)",
+              "japanese": "私は 剣道を する ことができます",
+              "sentence": "I ___ ___ kendo.",
+              "answer": "can do"
+            },
+            {
+              "number": "(2)",
+              "japanese": "私は 泳ぐ ことができません。",
+              "sentence": "I ___ ___.",
+              "answer": "can't swim"
+            }
+          ]
+        },
+        {
+          "id": "U1P3-A-step2",
+          "type": "fill_in_blank",
+          "instruction": "日本語に合うように、空らんに適切な語を書こう。",
+          "items": [
+            {
+              "number": "(1)",
+              "japanese": "私は上手に踊ることができます。",
+              "sentence": "I ___ ___ well.",
+              "answer": "can dance"
+            },
+            {
+              "number": "(2)",
+              "japanese": "私は速く走ることができます。",
+              "sentence": "I ___ ___ fast.",
+              "answer": "can run"
+            },
+            {
+              "number": "(3)",
+              "japanese": "私たちはサッカーをすることができます。",
+              "sentence": "We ___ ___ soccer.",
+              "answer": "can play"
+            },
+            {
+              "number": "(4)",
+              "japanese": "私は上手に歌うことができません。",
+              "sentence": "I ___ ___ well.",
+              "answer": "can't sing"
+            },
+            {
+              "number": "(5)",
+              "japanese": "私は上手に絵を描くことができません。",
+              "sentence": "I ___ ___ pictures well.",
+              "answer": "can't draw"
+            },
+            {
+              "number": "(6)",
+              "japanese": "私は上手にギターを演奏することができません。",
+              "sentence": "I ___ ___ the guitar well.",
+              "answer": "can't play"
+            }
+          ]
+        },
+        {
+          "id": "U1P3-B-step3",
+          "type": "rearrange",
+          "instruction": "語句を並べかえて対話を完成させよう。②と③はあとに続く文も答えよう。",
+          "items": [
+            {
+              "number": 1,
+              "japanese": "ぼくはサンドイッチを作ることができるよ。",
+              "words": ["make", "can", "sandwiches", "I", "."],
+              "answer": "I can make sandwiches."
+            },
+            {
+              "number": 2,
+              "japanese": "私はピアノをひけるよ。",
+              "words": ["the piano", "I", "play", "can", "."],
+              "answer": "I can play the piano."
+            },
+            {
+              "number": 3,
+              "japanese": "私は速く走れないの。",
+              "words": ["can't", "I", "fast", "run", "."],
+              "answer": "I can't run fast."
+            }
+          ]
+        },
+        {
+          "id": "U1P3-kikichare",
+          "type": "dictation",
+          "instruction": "聞きチャレ！ 書き取ろう",
+          "sentence_template": "I ___ ___ rugby.",
+          "answer": "I can play rugby."
+        }
+      ]
+    },
+    {
+      "section": "Unit 1 のまとめ 単語・連語",
+      "unit": "Unit 1",
+      "part": "summary",
+      "questions": [
+        {
+          "id": "U1S-1",
+          "type": "write_word",
+          "instruction": "英単語を書こう。",
+          "items": [
+            {"number": "(1)", "japanese": "授業", "answer": "class"},
+            {"number": "(2)", "japanese": "生徒、学生", "answer": "student"},
+            {"number": "(3)", "japanese": "住む", "answer": "live"},
+            {"number": "(4)", "japanese": "ここに", "answer": "here"},
+            {"number": "(5)", "japanese": "季節", "answer": "season"},
+            {"number": "(6)", "japanese": "ドラム、太鼓", "answer": "drum"},
+            {"number": "(7)", "japanese": "秋", "answer": "fall"},
+            {"number": "(8)", "japanese": "冬", "answer": "winter"},
+            {"number": "(9)", "japanese": "日本", "answer": "Japan"},
+            {"number": "(10)", "japanese": "もの、こと", "answer": "thing"},
+            {"number": "(11)", "japanese": "見る", "answer": "look"},
+            {"number": "(12)", "japanese": "かっこいい", "answer": "cool"},
+            {"number": "(13)", "japanese": "泳ぐ", "answer": "swim"},
+            {"number": "(14)", "japanese": "美しい", "answer": "beautiful"}
+          ]
+        },
+        {
+          "id": "U1S-2",
+          "type": "fill_in_blank",
+          "instruction": "日本語に合うように、空らんに適切な語を書こう。",
+          "items": [
+            {
+              "number": "(1)",
+              "japanese": "ありがとう、直也。",
+              "sentence": "___ , Naoya.",
+              "answer": "Thanks"
+            },
+            {
+              "number": "(2)",
+              "japanese": "私をカズと呼んでください。",
+              "sentence": "___ me Kazu.",
+              "answer": "Call"
+            },
+            {
+              "number": "(3)",
+              "japanese": "初めまして。",
+              "sentence": "Nice to ___ you.",
+              "answer": "meet"
+            },
+            {
+              "number": "(4)",
+              "japanese": "こんにちは、さやか。",
+              "sentence": "___ , Sayaka.",
+              "answer": "Hello"
+            },
+            {
+              "number": "(5)",
+              "japanese": "私は12歳です。",
+              "sentence": "I'm 12 ___ ___.",
+              "answer": "years old"
+            },
+            {
+              "number": "(6)",
+              "japanese": "あなたはどうですか。",
+              "sentence": "___ ___ you?",
+              "answer": "How about"
+            },
+            {
+              "number": "(7)",
+              "japanese": "私は紫色がそんなに好きではありません。",
+              "sentence": "I don't like purple ___ ___.",
+              "answer": "very much"
+            },
+            {
+              "number": "(8)",
+              "japanese": "私は野球をしませんが、サッカーをします。",
+              "sentence": "I don't play baseball, ___ I play ___.",
+              "answer": "but / soccer"
+            }
+          ]
+        },
+        {
+          "id": "U1S-3",
+          "type": "rearrange_with_extra",
+          "instruction": "日本語に合うように、（ ）内の語句を並べかえなさい。ただし、不要な語が1つ含まれています。",
+          "items": [
+            {
+              "number": "(1)",
+              "japanese": "私はリンゴが好きです。",
+              "words": ["I", "apples", "like", "am", "."],
+              "extra": "am",
+              "answer": "I like apples."
+            },
+            {
+              "number": "(2)",
+              "japanese": "私は大阪出身です。",
+              "words": ["play", "am", "from Osaka", "I", "."],
+              "extra": "play",
+              "answer": "I am from Osaka."
+            },
+            {
+              "number": "(3)",
+              "japanese": "私は速く泳ぐことができません。",
+              "words": ["can", "can't", "swim fast", "I", "."],
+              "extra": "can",
+              "answer": "I can't swim fast."
+            },
+            {
+              "number": "(4)",
+              "japanese": "私は秋が好きではありません。",
+              "words": ["like", "am", "I", "don't", "fall", "."],
+              "extra": "am",
+              "answer": "I don't like fall."
+            }
+          ]
+        },
+        {
+          "id": "U1S-4",
+          "type": "complete_dialogue",
+          "instruction": "日本語を参考にして、会話を完成させなさい。",
+          "scene": "マーク(Mark)と春奈は自己紹介をしています。",
+          "dialogue": [
+            {"speaker": "Mark", "text": "Hi. I'm Mark. Nice to meet you."},
+            {"speaker": "Haruna", "text": "Hi, Mark. I'm Haruna."},
+            {"speaker": "Haruna", "text": "① ___ . I can dance well.", "blank": "①", "hint": "（私は音楽が好きだよ。）", "answer": "I like music."},
+            {"speaker": "Mark", "text": "Cool! I like music, too."},
+            {"speaker": "Mark", "text": "② ___", "blank": "②", "hint": "（ぼくはピアノが弾けるよ。）", "answer": "I can play the piano."}
+          ]
+        },
+        {
+          "id": "U1S-5",
+          "type": "select_word",
+          "instruction": "am、like、run、canの中から適切なものを選び、意味の通る文にしなさい。",
+          "word_bank": ["am", "like", "run", "can"],
+          "items": [
+            {
+              "number": "(1)",
+              "sentence": "I ___ basketball.",
+              "answer": "like"
+            },
+            {
+              "number": "(2)",
+              "sentence": "I ___ 13 years old.",
+              "answer": "am"
+            },
+            {
+              "number": "(3)",
+              "sentence": "I ___ do karate.",
+              "answer": "can"
+            },
+            {
+              "number": "(4)",
+              "sentence": "I can't ___ fast.",
+              "answer": "run"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Unit 1 読解",
+      "unit": "Unit 1",
+      "part": "reading",
+      "questions": [
+        {
+          "id": "U1R-6",
+          "type": "reading_comprehension",
+          "instruction": "速読：クリス(Chris)が自己紹介をしています。クリスはどこの出身ですか。答えを表す1文に下線を引きなさい。",
+          "passage": "Hello, everyone. I'm Christopher Davis. Call me Chris. I'm from Canada. I'm 12 years old. I like music and sports. I can play the piano, but I can't sing well. I can run fast and play baseball.",
+          "question": "クリスはどこの出身ですか。答えを表す1文に下線を引きなさい。",
+          "answer": "I'm from Canada."
+        },
+        {
+          "id": "U1R-7",
+          "type": "reading_comprehension",
+          "instruction": "速読：隆志が新入生の交流会で留学生のエイミー(Amy)に話しかけています。",
+          "passage": "Takashi: Hello. I'm Saito Takashi.\nAmy: Hi. I'm Amy Green. I'm from the U.S.\nTakashi: Nice to meet you, Amy.\nAmy: Nice to meet you, too, Takashi.\nTakashi: I like music. How about you?\nAmy: I like music, too. I can play the flute.\nTakashi: Cool!",
+          "question": "エイミーが演奏できる楽器は何ですか。1つ選び、記号を書きなさい。（ア:ピアノ／イ:ギター／ウ:フルート）",
+          "choices": ["ア：ピアノ", "イ：ギター", "ウ：フルート"],
+          "answer": "ウ"
+        }
+      ]
+    },
+    {
+      "section": "Unit 2 Part 1 「あなたは〜ですか」be動詞の疑問文",
+      "unit": "Unit 2",
+      "part": 1,
+      "questions": [
+        {
+          "id": "U2P1-furi-1",
+          "type": "fill_in_blank",
+          "instruction": "ふり返り「私は〜です」：日本語に合うように、空らんに適切な語を書こう。",
+          "items": [
+            {
+              "japanese": "私はアメリカ合衆国出身です。",
+              "sentence": "I ___ from the U.S.",
+              "answer": "am"
+            }
+          ]
+        },
+        {
+          "id": "U2P1-textbook-1",
+          "type": "fill_in_blank",
+          "instruction": "教科書p.39の基本文を完成させよう。",
+          "items": [
+            {
+              "japanese": "あなたは新入生です。",
+              "sentence": "___ ___ a new student.",
+              "answer": "You are"
+            },
+            {
+              "japanese": "あなたは新入生ですか。",
+              "sentence": "___ ___ a new student?",
+              "answer": "Are you"
+            },
+            {
+              "japanese": "〔返答〕はい、そうです。",
+              "sentence": "Yes, I ___.",
+              "answer": "am"
+            },
+            {
+              "japanese": "〔返答〕いいえ、違います。",
+              "sentence": "No, ___ ___.",
+              "answer": "I'm not"
+            }
+          ]
+        },
+        {
+          "id": "U2P1-A-step1",
+          "type": "select_fill",
+          "instruction": "日本語に合うように、ボックス内から適切な語を選んで書こう。",
+          "word_bank": ["you", "are"],
+          "items": [
+            {
+              "number": "(1)",
+              "japanese": "あなたはアニメファンですね。",
+              "sentence": "___ ___ an anime fan.",
+              "answer": "You are"
+            },
+            {
+              "number": "(2)",
+              "japanese": "あなたは北海道出身ですか。",
+              "sentence": "___ ___ from Hokkaido?",
+              "answer": "Are you"
+            }
+          ]
+        },
+        {
+          "id": "U2P1-A-step2",
+          "type": "fill_in_blank",
+          "instruction": "日本語に合うように、空らんに適切な語を書こう。",
+          "items": [
+            {
+              "number": "(1)",
+              "japanese": "あなたは翔平ですね。",
+              "sentence": "You ___ Shohei.",
+              "answer": "are"
+            },
+            {
+              "number": "(2)",
+              "japanese": "あなたは私の友達です。",
+              "sentence": "___ ___ my friend.",
+              "answer": "You are"
+            },
+            {
+              "number": "(3)",
+              "japanese": "あなたはホワイト先生ですか。",
+              "sentence": "___ you Ms. White?",
+              "answer": "Are"
+            },
+            {
+              "number": "(4)",
+              "japanese": "あなたは空腹ですか。",
+              "sentence": "___ you hungry?",
+              "answer": "Are"
+            },
+            {
+              "number": "(5)",
+              "japanese": "あなたはバスケットボールファンですか。—はい、そうです。",
+              "sentence": "___ you a basketball fan? — ___, I ___.",
+              "answer": "Are / Yes / am"
+            },
+            {
+              "number": "(6)",
+              "japanese": "あなたは13歳ですか。—いいえ、違います。",
+              "sentence": "___ you 13 years old? — No, I'm ___.",
+              "answer": "Are / not"
+            },
+            {
+              "number": "(7)",
+              "japanese": "あなたは疲れていますか。—はい、そうです。",
+              "sentence": "___ ___ tired? — Yes, ___ ___.",
+              "answer": "Are you / I am"
+            },
+            {
+              "number": "(8)",
+              "japanese": "あなたはイギリス出身ですか。—いいえ、違います。",
+              "sentence": "___ ___ from the U.K.? — No, ___ not.",
+              "answer": "Are you / I'm"
+            }
+          ]
+        },
+        {
+          "id": "U2P1-B-step3",
+          "type": "rearrange",
+          "instruction": "語句を並べかえて対話を完成させよう。②と③はあとに続く文も答えよう。",
+          "items": [
+            {
+              "number": 1,
+              "japanese": "きみは歴史に興味をもっているんだね。",
+              "words": ["you", "are", "history", "interested in", "."],
+              "answer": "You are interested in history."
+            },
+            {
+              "number": 2,
+              "japanese": "きみはドイツ出身なの？",
+              "words": ["you", "from", "are", "Germany", "?"],
+              "answer": "Are you from Germany?"
+            },
+            {
+              "number": 3,
+              "japanese": "あなたは忍者のファンなの？",
+              "words": ["you", "ninja fan", "are", "a", "?"],
+              "answer": "Are you a ninja fan?"
+            }
+          ]
+        },
+        {
+          "id": "U2P1-kikichare",
+          "type": "dictation",
+          "instruction": "聞きチャレ！ 書き取ろう",
+          "sentence_template": "___ ___ ___ South Africa?",
+          "answer": "Are you from South Africa?"
+        }
+      ]
+    },
+    {
+      "section": "Unit 2 Part 2 「あなたは〜しますか」一般動詞の疑問文",
+      "unit": "Unit 2",
+      "part": 2,
+      "questions": [
+        {
+          "id": "U2P2-furi-1",
+          "type": "fill_in_blank",
+          "instruction": "ふり返り be動詞の疑問文：日本語に合うように、空らんに適切な語を書こう。",
+          "items": [
+            {
+              "number": "(1)",
+              "japanese": "あなたは野球ファンですか。",
+              "sentence": "___ you a baseball fan?",
+              "answer": "Are"
+            },
+            {
+              "number": "(2)",
+              "japanese": "あなたは新入生ですか。",
+              "sentence": "___ ___ a new student?",
+              "answer": "Are you"
+            }
+          ]
+        },
+        {
+          "id": "U2P2-textbook-1",
+          "type": "fill_in_blank",
+          "instruction": "教科書p.41の基本文を完成させよう。",
+          "items": [
+            {
+              "japanese": "あなたは楽器を演奏しますか。",
+              "sentence": "___ you play an instrument?",
+              "answer": "Do"
+            },
+            {
+              "japanese": "〔返答〕はい、します。",
+              "sentence": "Yes, I ___.",
+              "answer": "do"
+            },
+            {
+              "japanese": "〔返答〕いいえ、しません。",
+              "sentence": "No, I ___.",
+              "answer": "don't"
+            }
+          ]
+        },
+        {
+          "id": "U2P2-A-step1",
+          "type": "select_fill",
+          "instruction": "日本語に合うように、ボックス内から適切な語を選んで書こう。",
+          "word_bank": ["do", "like", "make"],
+          "items": [
+            {
+              "number": "(1)",
+              "japanese": "あなたはお菓子を作りますか。",
+              "sentence": "___ you ___ sweets?",
+              "answer": "Do / make"
+            },
+            {
+              "number": "(2)",
+              "japanese": "あなたはバナナが好きですか。",
+              "sentence": "___ you ___ bananas?",
+              "answer": "Do / like"
+            }
+          ]
+        },
+        {
+          "id": "U2P2-A-step2",
+          "type": "fill_in_blank",
+          "instruction": "日本語に合うように、空らんに適切な語を書こう。",
+          "items": [
+            {
+              "number": "(1)",
+              "japanese": "あなたは動物について勉強していますか。",
+              "sentence": "___ you study about animals?",
+              "answer": "Do"
+            },
+            {
+              "number": "(2)",
+              "japanese": "あなたはカラオケに行きますか。—はい、行きます。",
+              "sentence": "___ you go to karaoke? — Yes, I ___.",
+              "answer": "Do / do"
+            },
+            {
+              "number": "(3)",
+              "japanese": "あなたは剣道をしますか。—いいえ、しません。",
+              "sentence": "___ ___ do kendo? — No, I ___.",
+              "answer": "Do you / don't"
+            },
+            {
+              "number": "(4)",
+              "japanese": "あなたは神戸に住んでいますか。—はい、住んでいます。",
+              "sentence": "___ you ___ in Kobe? — Yes, I ___.",
+              "answer": "Do / live / do"
+            },
+            {
+              "number": "(5)",
+              "japanese": "あなたは漫画を読みますか。—いいえ、読みません。",
+              "sentence": "___ you ___ manga? — No, I ___.",
+              "answer": "Do / read / don't"
+            },
+            {
+              "number": "(6)",
+              "japanese": "あなたはよく釣りを楽しみますか。",
+              "sentence": "___ you ___ enjoy fishing?",
+              "answer": "Do / often"
+            },
+            {
+              "number": "(7)",
+              "japanese": "あなたはときどき公園で走りますか。",
+              "sentence": "___ you ___ ___ in the park?",
+              "answer": "Do / sometimes run"
+            },
+            {
+              "number": "(8)",
+              "japanese": "あなたは月曜日にフルートを演奏しますか。",
+              "sentence": "___ you ___ the flute ___ Mondays?",
+              "answer": "Do / play / on"
+            }
+          ]
+        },
+        {
+          "id": "U2P2-B-step3",
+          "type": "rearrange",
+          "instruction": "語句を並べかえて対話を完成させよう。②と③はあとに続く文も答えよう。",
+          "items": [
+            {
+              "number": 1,
+              "japanese": "きみはアニメ音楽を聞く？",
+              "words": ["you", "do", "listen", "anime music", "to", "?"],
+              "answer": "Do you listen to anime music?"
+            },
+            {
+              "number": 2,
+              "japanese": "きみはいつもそのテレビ番組(the TV show)を見るの？",
+              "words": ["you", "the TV show", "do", "watch", "always", "?"],
+              "answer": "Do you always watch the TV show?"
+            },
+            {
+              "number": 3,
+              "japanese": "あなたは金曜日にサッカーを練習するの？",
+              "words": ["Fridays", "soccer", "on", "you", "practice", "do", "?"],
+              "answer": "Do you practice soccer on Fridays?"
+            }
+          ]
+        },
+        {
+          "id": "U2P2-kikichare",
+          "type": "dictation",
+          "instruction": "聞きチャレ！ 書き取ろう",
+          "sentence_template": "___ ___ ___ the drums?",
+          "answer": "Do you play the drums?"
+        }
+      ]
+    },
+    {
+      "section": "Unit 2 Part 3 「〜できますか」助動詞canの疑問文",
+      "unit": "Unit 2",
+      "part": 3,
+      "questions": [
+        {
+          "id": "U2P3-furi-1",
+          "type": "fill_in_blank",
+          "instruction": "ふり返り「〜できます」「〜できません」：日本語に合うように、空らんに適切な語を書こう。",
+          "items": [
+            {
+              "number": "(1)",
+              "japanese": "私はひらがなを読むことができます。",
+              "sentence": "I ___ read hiragana.",
+              "answer": "can"
+            },
+            {
+              "number": "(2)",
+              "japanese": "私は漢字を書くことができません。",
+              "sentence": "I ___ write kanji.",
+              "answer": "can't"
+            }
+          ]
+        },
+        {
+          "id": "U2P3-textbook-1",
+          "type": "fill_in_blank",
+          "instruction": "教科書p.43の基本文を完成させよう。",
+          "items": [
+            {
+              "japanese": "それを読めますか。",
+              "sentence": "___ you read it?",
+              "answer": "Can"
+            },
+            {
+              "japanese": "〔返答〕はい、読めます。",
+              "sentence": "Yes, I ___.",
+              "answer": "can"
+            },
+            {
+              "japanese": "〔返答〕いいえ、読めません。",
+              "sentence": "No, I ___.",
+              "answer": "can't"
+            }
+          ]
+        },
+        {
+          "id": "U2P3-A-step1",
+          "type": "select_fill",
+          "instruction": "日本語に合うように、ボックス内から適切な語を選んで書こう。",
+          "word_bank": ["run", "play", "can"],
+          "items": [
+            {
+              "number": "(1)",
+              "japanese": "あなたは ドラムを 演奏する ことができますか。",
+              "sentence": "___ you ___ the drums?",
+              "answer": "Can / play"
+            },
+            {
+              "number": "(2)",
+              "japanese": "あなたは 速く 走る ことができますか。",
+              "sentence": "___ you ___ fast?",
+              "answer": "Can / run"
+            }
+          ]
+        },
+        {
+          "id": "U2P3-A-step2",
+          "type": "fill_in_blank",
+          "instruction": "日本語に合うように、空らんに適切な語を書こう。",
+          "items": [
+            {
+              "number": "(1)",
+              "japanese": "あなたは上手に踊ることができますか。—はい、踊れます。",
+              "sentence": "___ you dance well? — Yes, I ___.",
+              "answer": "Can / can"
+            },
+            {
+              "number": "(2)",
+              "japanese": "あなたは泳ぐことができますか。—はい、泳げます。",
+              "sentence": "___ you swim? — Yes, ___ ___.",
+              "answer": "Can / I can"
+            },
+            {
+              "number": "(3)",
+              "japanese": "あなたは馬に乗ることができますか。—いいえ、乗れません。",
+              "sentence": "___ ___ ride a horse? — No, I ___.",
+              "answer": "Can you / can't"
+            },
+            {
+              "number": "(4)",
+              "japanese": "あなたは空手をすることができますか。—いいえ、できません。",
+              "sentence": "___ ___ do karate? — No, ___ ___.",
+              "answer": "Can you / I can't"
+            },
+            {
+              "number": "(5)",
+              "japanese": "あなたは焼きそばを作ることができますか。",
+              "sentence": "___ you ___ yakisoba?",
+              "answer": "Can / make"
+            },
+            {
+              "number": "(6)",
+              "japanese": "あなたはラグビーをすることができますか。",
+              "sentence": "___ you ___ rugby?",
+              "answer": "Can / play"
+            },
+            {
+              "number": "(7)",
+              "japanese": "あなたは「リンゴ」を漢字で書くことができますか。",
+              "sentence": "___ ___ ___ 'apple' in kanji?",
+              "answer": "Can you write"
+            }
+          ]
+        },
+        {
+          "id": "U2P3-B-step3",
+          "type": "rearrange",
+          "instruction": "語句を並べかえて対話を完成させよう。②と③はあとに続く文も答えよう。",
+          "items": [
+            {
+              "number": 1,
+              "japanese": "きみは上手に歌えるの？",
+              "words": ["well", "you", "sing", "can", "?"],
+              "answer": "Can you sing well?"
+            },
+            {
+              "number": 2,
+              "japanese": "きみはケーキを作れる？",
+              "words": ["make", "can", "a cake", "you", "?"],
+              "answer": "Can you make a cake?"
+            },
+            {
+              "number": 3,
+              "japanese": "あなたは上手に絵を描ける？",
+              "words": ["you", "can", "well", "draw", "pictures", "?"],
+              "answer": "Can you draw pictures well?"
+            }
+          ]
+        },
+        {
+          "id": "U2P3-kikichare",
+          "type": "dictation",
+          "instruction": "聞きチャレ！ 書き取ろう",
+          "sentence_template": "___ ___ ___ fast?",
+          "answer": "Can you run fast?"
+        }
+      ]
+    },
+    {
+      "section": "Unit 2 のまとめ 単語・連語",
+      "unit": "Unit 2",
+      "part": "summary",
+      "questions": [
+        {
+          "id": "U2S-1",
+          "type": "write_word",
+          "instruction": "英単語を書こう。",
+          "items": [
+            {"number": "(1)", "japanese": "新しい", "answer": "new"},
+            {"number": "(2)", "japanese": "来る、行く", "answer": "come"},
+            {"number": "(3)", "japanese": "言う", "answer": "say"},
+            {"number": "(4)", "japanese": "練習する", "answer": "practice"},
+            {"number": "(5)", "japanese": "学校", "answer": "school"},
+            {"number": "(6)", "japanese": "チーム", "answer": "team"},
+            {"number": "(7)", "japanese": "月曜日", "answer": "Monday"},
+            {"number": "(8)", "japanese": "米、ごはん", "answer": "rice"},
+            {"number": "(9)", "japanese": "読む", "answer": "read"},
+            {"number": "(10)", "japanese": "夜", "answer": "night"},
+            {"number": "(11)", "japanese": "書く", "answer": "write"},
+            {"number": "(12)", "japanese": "〜に乗る", "answer": "ride"},
+            {"number": "(13)", "japanese": "父親", "answer": "father"},
+            {"number": "(14)", "japanese": "雑誌", "answer": "magazine"}
+          ]
+        },
+        {
+          "id": "U2S-2",
+          "type": "fill_in_blank",
+          "instruction": "日本語に合うように、空らんに適切な語を書こう。",
+          "items": [
+            {
+              "number": "(1)",
+              "japanese": "私はサッカーの大ファンです。",
+              "sentence": "I'm a big fan ___ soccer.",
+              "answer": "of"
+            },
+            {
+              "number": "(2)",
+              "japanese": "私は金曜日は暇です。",
+              "sentence": "I'm ___ on Fridays.",
+              "answer": "free"
+            },
+            {
+              "number": "(3)",
+              "japanese": "私たちはよくアニメを見ます。",
+              "sentence": "We ___ watch anime.",
+              "answer": "often"
+            },
+            {
+              "number": "(4)",
+              "japanese": "私はときどきおにぎりを作ります。",
+              "sentence": "I ___ make rice balls.",
+              "answer": "sometimes"
+            },
+            {
+              "number": "(5)",
+              "japanese": "あなたは歴史に興味がありますか。",
+              "sentence": "Are you ___ ___ history?",
+              "answer": "interested in"
+            },
+            {
+              "number": "(6)",
+              "japanese": "私は動物がとても好きです。",
+              "sentence": "I like animals ___ ___.",
+              "answer": "very much"
+            },
+            {
+              "number": "(7)",
+              "japanese": "私はフルートを少し演奏します。",
+              "sentence": "I play the flute ___ ___.",
+              "answer": "a little"
+            },
+            {
+              "number": "(8)",
+              "japanese": "あなたはラジオを聞きますか。",
+              "sentence": "Do you ___ ___ the radio?",
+              "answer": "listen to"
+            }
+          ]
+        },
+        {
+          "id": "U2S-3",
+          "type": "rearrange_with_extra",
+          "instruction": "日本語に合うように、（ ）内の語句を並べかえなさい。ただし、不要な語が1つ含まれています。",
+          "items": [
+            {
+              "number": "(1)",
+              "japanese": "あなたはサッカーをしますか。",
+              "words": ["soccer", "play", "you", "do", "are", "?"],
+              "extra": "are",
+              "answer": "Do you play soccer?"
+            },
+            {
+              "number": "(2)",
+              "japanese": "あなたは泳ぐことができますか。",
+              "words": ["you", "swim", "do", "can", "?"],
+              "extra": "do",
+              "answer": "Can you swim?"
+            },
+            {
+              "number": "(3)",
+              "japanese": "あなたは月曜日に柔道を練習しますか。",
+              "words": ["Mondays", "are", "on", "do", "you", "practice judo", "?"],
+              "extra": "are",
+              "answer": "Do you practice judo on Mondays?"
+            },
+            {
+              "number": "(4)",
+              "japanese": "あなたは野球ファンですか。",
+              "words": ["you", "a baseball fan", "do", "are", "?"],
+              "extra": "do",
+              "answer": "Are you a baseball fan?"
+            }
+          ]
+        },
+        {
+          "id": "U2S-4",
+          "type": "complete_dialogue",
+          "instruction": "日本語を参考にして、会話を完成させなさい。",
+          "scene": "亜紀とピーター(Peter)は日本食について話しています。",
+          "dialogue": [
+            {"speaker": "Aki", "text": "Peter, do you like Japanese food?"},
+            {"speaker": "Peter", "text": "① ___ I like tempura.", "blank": "①", "hint": "（うん、好きだよ。）", "answer": "Yes, I do."},
+            {"speaker": "Aki", "text": "Can you make tempura?"},
+            {"speaker": "Aki", "text": "② ___", "blank": "②", "hint": "（うぅん、できないよ。）", "answer": "No, I can't."}
+          ]
+        },
+        {
+          "id": "U2S-5",
+          "type": "select_question",
+          "instruction": "対話文が成り立つように、下のボックスから適切な語句を選んで書きなさい。",
+          "word_bank": ["do you", "are you", "can you"],
+          "items": [
+            {
+              "number": "(1)",
+              "sentence": "___ from Tokyo? — Yes, I am.",
+              "answer": "Are you"
+            },
+            {
+              "number": "(2)",
+              "sentence": "___ dance well? — Yes, I can.",
+              "answer": "Can you"
+            },
+            {
+              "number": "(3)",
+              "sentence": "___ play basketball? — No, I don't.",
+              "answer": "Do you"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Unit 2 読解",
+      "unit": "Unit 2",
+      "part": "reading",
+      "questions": [
+        {
+          "id": "U2R-6",
+          "type": "reading_comprehension",
+          "instruction": "速読：留学生のケビン(Kevin)とさくらが話しています。",
+          "passage": "Kevin: Hi. I'm Kevin. I'm from Canada. I like basketball.\nSakura: Do you play basketball?\nKevin: Yes, I do. Do you play basketball, too?\nSakura: No, I don't. I play soccer.\nKevin: Really? Do you play soccer every day?\nSakura: No, I don't. I play it on Mondays and Fridays.",
+          "question": "さくらはいつサッカーをしますか。答えを表す1文に下線を引きなさい。",
+          "answer": "I play it on Mondays and Fridays."
+        },
+        {
+          "id": "U2R-7",
+          "type": "reading_comprehension",
+          "instruction": "速読：咲は学校で新しい友達のリリー(Lily)と話しています。",
+          "passage": "Saki: Hello. I'm Takagi Saki. Nice to meet you.\nLily: Hello. My name is Lily Brown.\nSaki: Oh, you have a nice racket. Do you play tennis?\nLily: Yes, I do. Are you a tennis fan?\nSaki: Yes, I am. I play tennis every day.\nLily: That's great.\nSaki: Let's play tennis.\nLily: OK. Let's go.",
+          "question": "この対話のあとに2人が行く場所を1つ選び、記号を書きなさい。（ア:野球場 ／ イ:テニスコート ／ ウ:スポーツ用品店）",
+          "choices": ["ア：野球場", "イ：テニスコート", "ウ：スポーツ用品店"],
+          "answer": "イ"
+        }
+      ]
+    },
+    {
+      "section": "My Life in Japan 1 熟読",
+      "unit": "My Life in Japan",
+      "part": 1,
+      "questions": [
+        {
+          "id": "MLJ1-reading",
+          "type": "reading_comprehension",
+          "passage": "Emily: Hi, I'm Emily.\nYu: Hi, Emily. I am Yu.\nEmily: \"I am you\"?\nYu: My name is \"Yu.\" Y-U.\nEmily: Oh, I see. You are Yu!\nYu: Where are you from?\nEmily: I'm from the U.S. Oh, you have a flute. Are you in the brass band?\nYu: Yes. We practice in the music room. We play anime songs.\nEmily: Wow, anime songs! I like anime very much.",
+          "questions": [
+            {
+              "id": "MLJ1-Q1",
+              "question": "(1) エミリーと男の子はおもに何について話していますか。1つ選び、記号を書きなさい。",
+              "choices": ["ア：お互いの出身地について", "イ：好きなスポーツについて", "ウ：名前や部活動について"],
+              "answer": "ウ"
+            },
+            {
+              "id": "MLJ1-Q2",
+              "question": "(2) エミリーが話している男の子の名前は何ですか。ひらがなで書きなさい。",
+              "answer": "ゆう"
+            },
+            {
+              "id": "MLJ1-Q3a",
+              "question": "(3a) エミリーになったつもりで、次の問いに英語3語で答えなさい。Are you from Canada?",
+              "answer": "No, I'm not."
+            },
+            {
+              "id": "MLJ1-Q3b",
+              "question": "(3b) エミリーになったつもりで、次の問いに英語3語で答えなさい。Are you an anime fan?",
+              "answer": "Yes, I am."
+            },
+            {
+              "id": "MLJ1-Q4",
+              "question": "(4) 男の子が演奏する楽器は何ですか。日本語で書きなさい。",
+              "answer": "フルート"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
